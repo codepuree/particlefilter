@@ -1,0 +1,6 @@
+Particlefilter tasks:
+    ✔ Data acquision @done (10/15/2018, 1:39:03 PM)
+        ✔ Load pointcloud from kinect @done (10/15/2018, 1:39:02 PM)
+        ✔ Get cross section band (+- 20 cm) @done (10/15/2018, 1:39:02 PM)
+    ☐ Load map as occupancy grid
+    ☐ Simulate roboter movement on occupancy grid
