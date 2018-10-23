@@ -6,21 +6,27 @@ function [thetas, rhos, xs, ys] = SimulateKinect(map, x, y, theta, varargin)
 % Long description
 
 p = inputParser;
-addParameter(p, 'maxrange', 5, @isnumeric);
+
+% Max range name-value pair
+defaultValMaxrange = 5;
+validateMaxrange   = @(x) validateattributes(x, {'single', 'double'}, {'positive'});
+addOptional(p, 'maxrange', defaultValMaxrange, validateMaxrange);
+
+% Angles name-value pair
+defaultValAngles = (theta - 0.48) : 2 * pi / 500 : (theta + 0.48);   % [0, pi/6, pi/3, pi/2, 4*pi/6, 5*pi/6, pi];
+validateAngles   = @(x) validateattributes(x, {'double'}, {'nonempty'});
+addOptional(p, 'angles', defaultValAngles, validateAngles);
+
 parse(p, varargin{:});
 
-p.Results
-
+maxrange  = p.Results.maxrange;
 robotPose = [x, y, theta];
 
-angle = [0, pi/6, pi/3, pi/2, 4*pi/6, 5*pi/6, pi];
-angle = angle + pi / 2;
-angle = angle - theta;
+angles = p.Results.angles;
+angles = angles + pi / 2;
+angles = angles - theta;
 
-% maxrange = p.Results.maxrange;
-maxrange = 5;
-
-intersectionPts = rayIntersection(map, robotPose, angle, maxrange);
+intersectionPts = rayIntersection(map, robotPose, angles, maxrange);
 
 pointsReduced = intersectionPts - [x, y];
 pointsReduced = pointsReduced(~isnan(pointsReduced(:, 1)), :);

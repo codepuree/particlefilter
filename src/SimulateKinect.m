@@ -8,20 +8,21 @@ function [thetas, rhos, xs, ys] = SimulateKinect(map, x, y, theta, varargin)
 p = inputParser;
 
 % Max range name-value pair
-defaultValMaxrange = 0;
-validateMaxrange   = validateattributes();
-addParameter(p, 'maxrange', defaultValMaxrange)
+defaultValMaxrange = 5;
+validateMaxrange   = @(x) validateattributes(x, {'single', 'double'}, {'positive'});
+addOptional(p, 'maxrange', defaultValMaxrange, validateMaxrange);
 
-addParameter(p, 'maxrange', 5, @isnumeric);
-addParameter(p, 'angles',   [0, pi/6, pi/3, pi/2, 4*pi/6, 5*pi/6, pi], @isnumeric);
+% Angles name-value pair
+defaultValAngles = (theta - 0.48) : 2 * pi / 500 : (theta + 0.48);   % [0, pi/6, pi/3, pi/2, 4*pi/6, 5*pi/6, pi];
+validateAngles   = @(x) validateattributes(x, {'double'}, {'nonempty'});
+addOptional(p, 'angles', defaultValAngles, validateAngles);
+
 parse(p, varargin{:});
 
-p.Results
-
-maxrange = p.Results.maxrange;
+maxrange  = p.Results.maxrange;
 robotPose = [x, y, theta];
 
-angles = [0, pi/6, pi/3, pi/2, 4*pi/6, 5*pi/6, pi];
+angles = p.Results.angles;
 angles = angles + pi / 2;
 angles = angles - theta;
 
