@@ -11,32 +11,62 @@ theta = pose(3);
 
 p = inputParser;
 
+% Min range name-value pair
+defaultValMinrange = 0.5;
+validateMinrange   = @(x) validateattributes(x, {'single', 'double'}, {'positive'});
+addOptional(p, 'minrange', defaultValMinrange, validateMinrange);
+
 % Max range name-value pair
-defaultValMaxrange = 5;
+defaultValMaxrange = 4;
 validateMaxrange   = @(x) validateattributes(x, {'single', 'double'}, {'positive'});
 addOptional(p, 'maxrange', defaultValMaxrange, validateMaxrange);
 
 % Angles name-value pair
-defaultValAngles = (theta - 0.48) : 2 * pi / 500 : (theta + 0.48);   % [0, pi/6, pi/3, pi/2, 4*pi/6, 5*pi/6, pi];
+defaultValAngles = zeros(0);   % [0, pi/6, pi/3, pi/2, 4*pi/6, 5*pi/6, pi];
 validateAngles   = @(x) validateattributes(x, {'double'}, {'nonempty'});
 addOptional(p, 'angles', defaultValAngles, validateAngles);
 
+% Angle steps name-value pair
+defaultValAnglesteps = 500;
+validateAnglesteps   = @(x) validateattributes(x, {'double'}, {'nonempty'});
+addOptional(p, 'anglesteps', defaultValAnglesteps, validateAnglesteps);
+
+% Angle range name-value pair
+defaultValAnglerange = 0.96;
+validateAnglerange   = @(x) validateattributes(x, {'double'}, {'nonempty'});
+addOptional(p, 'anglerange', defaultValAnglerange, validateAnglerange);
+
 parse(p, varargin{:});
 
-maxrange  = p.Results.maxrange;
-robotPose = [x, y, theta];
+maxRange   = p.Results.maxrange;
+minRange   = p.Results.minrange;
+robotPose  = [x, y, theta];
+angles     = p.Results.angles;
+angleSteps = p.Results.anglesteps;
+angleRange = p.Results.anglerange;
+
+if isempty(angles)
+    angles = (theta - angleRange / 2) : 2 * pi / angleSteps : (theta + angleRange / 2);
+end
 
 angles = p.Results.angles;
 angles = angles + pi / 2;
 angles = angles - theta;
 
-intersectionPts = rayIntersection(map, robotPose, angles, maxrange);
+intersectionPts = rayIntersection(map, robotPose, angles, maxRange);
+intersectionPts = intersectionPts(~isnan(intersectionPts(:, 1)), :);
 
 pointsReduced = intersectionPts - [x, y];
-pointsReduced = pointsReduced(~isnan(pointsReduced(:, 1)), :);
-
-xs = intersectionPts(:, 1);
-ys = intersectionPts(:, 2);
 
 [thetas, rhos] = cart2pol(pointsReduced(:, 1), pointsReduced(:, 2));
+
+% Filter distance between min range 0.5 m and max range 4 m
+rhosIndices = rhos > minRange;
+
+thetas = thetas(rhosIndices);
+rhos   = rhos(rhosIndices);
+
+xs = intersectionPts(rhosIndices, 1);
+ys = intersectionPts(rhosIndices, 2);
+
 end
