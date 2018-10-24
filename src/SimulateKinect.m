@@ -1,9 +1,13 @@
-function [thetas, rhos, xs, ys] = SimulateKinect(map, x, y, theta, varargin)
+function [thetas, rhos, xs, ys] = SimulateKinect(map, pose, varargin)
 %SimulateKinect - Simulates kinect meassurement
 %
-% Syntax: [thetas, rhos, xs, ys] = SimulateKinect(map, x, y, theta)
+% Syntax: [thetas, rhos, xs, ys] = SimulateKinect(map, pose)
 %
 % Long description
+
+x     = pose(1);
+y     = pose(2);
+theta = pose(3);
 
 p = inputParser;
 
