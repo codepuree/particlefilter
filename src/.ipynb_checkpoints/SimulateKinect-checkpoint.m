@@ -63,8 +63,8 @@ pointsReduced = intersectionPts - [x, y];
 % Filter distance between min range 0.5 m and max range 4 m
 rhosIndices = rhos > minRange;
 
-thetas = thetas(rhosIndices);
-rhos   = rhos(rhosIndices);
+thetas(rhosIndices) = NaN;
+rhos(rhosIndices)   = NaN;
 
 xs = intersectionPts(rhosIndices, 1);
 ys = intersectionPts(rhosIndices, 2);

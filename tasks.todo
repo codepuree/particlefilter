@@ -3,11 +3,12 @@ Particlefilter tasks:
         ✔ Load pointcloud from kinect @done (10/15/2018, 1:39:02 PM)
         ✔ Get cross section band (+- 20 cm) @done (10/15/2018, 1:39:02 PM)
     ✔ Load map as occupancy grid @done (10/23/2018, 2:07:33 PM)
-    ☐ Simulate roboter movement on occupancy grid @started(18-10-23 14:53)
-        ☐ simulate rays
-        ☐ generate polar coordinates
+    ✔ Simulate roboter movement on occupancy grid @started(18-10-23 14:53) @done (10/29/2018, 9:36:19 AM)
+        ✔ simulate rays @done (10/29/2018, 9:36:17 AM)
+        ✔ generate polar coordinates @done (10/29/2018, 9:36:18 AM)
+        ☐ Allow multiple poses
     ☐ Initialize particle filter
         ✔ Generate raster @done (10/23/2018, 2:48:08 PM)
-        ☐ generate poses (raster + orientations)
+        ✔ generate poses (raster + orientations) @done (10/29/2018, 9:36:15 AM)
         ☐ add weights vector
     ☐ Movement model
