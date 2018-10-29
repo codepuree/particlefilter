@@ -47,11 +47,11 @@ angleRange = p.Results.anglerange;
 
 if isempty(angles)
     angles = (theta - angleRange / 2) : 2 * pi / angleSteps : (theta + angleRange / 2);
+else
+    angles = p.Results.angles;
+    angles = angles + pi / 2;
+    angles = angles - theta; 
 end
-
-angles = p.Results.angles;
-angles = angles + pi / 2;
-angles = angles - theta;
 
 intersectionPts = rayIntersection(map, robotPose, angles, maxRange);
 intersectionPts = intersectionPts(~isnan(intersectionPts(:, 1)), :);
