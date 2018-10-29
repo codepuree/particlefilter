@@ -54,7 +54,6 @@ else
 end
 
 intersectionPts = rayIntersection(map, robotPose, angles, maxRange);
-intersectionPts = intersectionPts(~isnan(intersectionPts(:, 1)), :);
 
 pointsReduced = intersectionPts - [x, y];
 
