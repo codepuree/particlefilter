@@ -67,15 +67,34 @@ Init = Init(Pose_IdxOcc,:);
 % for i = 1:
 
 [theta_S,rho_S,~,~] = SimulateKinect(grid, [32, 30, pi/4]);
-antw = NaN(length(Init),1);
+% antw = NaN(length(Init),1);
 % for i = 1:length(Init)
 % [thetas, rhos,~,~] = SimulateKinect(grid, Init(i,:),'angles',theta_S);
 % antw(i,1) = sum(abs(rho_S-rhos));
 % end
 
 profile on
-antw = arrayfun(@(m) diffDist(grid, Init(m,:), theta_S, rho_S), 1:size(Init,1));
+numWorkers = 3;
+poolObj = parpool('local', numWorkers);
+out = cell(numWorkers, 1);
+parfor i = 1 : numWorkers
+    range = floor(size(Init,1) / numWorkers);
+    start = (i - 1) * range;
+    
+    if start == 0
+        start = 1;
+    end
+    
+    if i == numWorkers
+        range = size(Init,1) - (numWorkers - 1) * range;
+    end
+    
+    stop = start + range;
+    
+    out{i} = arrayfun(@(m) diffDist(grid, Init(m,:), theta_S, rho_S), start:stop);
+end
 profile viewer
+delete(poolObj);
 
 nn = ~isnan(antw);
 figure();
