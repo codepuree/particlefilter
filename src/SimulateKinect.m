@@ -46,13 +46,15 @@ angleSteps = p.Results.anglesteps;
 angleRange = p.Results.anglerange;
 
 if isempty(angles)
-    angles = (theta - angleRange / 2) : angleRange / angleSteps : (theta + angleRange / 2);
+    angles = -angleRange / 2 : angleRange / angleSteps : angleRange / 2;
 else
     angles = p.Results.angles;
-    angles = theta + angles; 
 end
 
-intersectionPts = rayIntersection(map, pose, angles, maxRange);
+idnn = ~isnan(angles);
+
+intersectionPts = NaN(length(angles), 2);
+intersectionPts(idnn, :) = rayIntersection(map, pose, angles(idnn), maxRange);
 
 pointsReduced = intersectionPts - [x, y];
 
@@ -64,9 +66,12 @@ rhosIndices = rhos < minRange;
 thetas(rhosIndices) = NaN;
 rhos(rhosIndices)   = NaN;
 
-thetas_test = thetas - theta;
+thetas = thetas - theta;
 
-xs = intersectionPts(rhosIndices, 1);
-ys = intersectionPts(rhosIndices, 2);
+intersectionPts(rhosIndices, 1) = NaN;
+intersectionPts(rhosIndices, 2) = NaN;
+
+xs = intersectionPts(:, 1);
+ys = intersectionPts(:, 2);
 
 end

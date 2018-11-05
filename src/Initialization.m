@@ -5,8 +5,9 @@ X      = reshape(X,numel(X),1);
 Y      = reshape(Y,numel(Y),1);
 
 mesh   = [X,Y];
+tic1 = tic;
 raster = getOccupancy(grid, mesh);
-
+toc(tic1)
 rIdxOcc   = raster < 0.5;
 free_raster       = mesh(rIdxOcc, :);
 
