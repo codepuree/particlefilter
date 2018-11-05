@@ -7,7 +7,7 @@ delete(poolObj);
 
 %% load grid
 axis equal
-grid = LoadMap('..\Data\Vorgabe_Update.png');
+grid = LoadMap('..\Data\Vorgabe_Raum.png');
 show(grid);
 hold on
 
@@ -21,16 +21,11 @@ Init = Initialization(grid,orient);
 W_v(1:length(Init)) = (1/length(Init))';
 
 %% Movement
-move = [-0.5,0,0];  % delta x,y[m] & o[rad]: 0.5,0 & 0
-
-
-Test_pose = [29.239,23.104,0.973];
-n_0 = 15000;
-n = n_0;
+move = [0.5,0,0];  % delta x,y[m] & o[rad]: 0.5,0 & 0 
 
 %% Measurement
 %CaptureKinnect
-while (n > 3000)
+
 %% 4.Propagation
 Init = Init + move;
 Pose_occ = getOccupancy(grid,Init(:,1:2));
@@ -45,9 +40,7 @@ Init = Init(Pose_IdxOcc,:);
 % c) innovation (script Abmayr)
 % d) Non linear weighting distance difference 
 
-if (n ~= n_0)
-Test_pose = Test_pose + move;
-end
+Test_pose = [27,23.5,pi/4];
 [antw,theta_S,rho_S] = Test_Measure(Test_pose,grid,Init,1); %process 1= calc;
 
 nn = ~isnan(antw);
@@ -67,20 +60,31 @@ INN = Init(nn,:);
 figure();
 show(grid);
 hold on
-% scatter(INN(:,1),INN(:,2), [],wN);
-
+scatter(INN(:,1),INN(:,2), [],wN);
+hold on
 scatter(Test_pose(1),Test_pose(2), 'xr')
 
 %% 6.Resampling
-% n & Streu should be reduced while iterating n(1) >>>> n(10...)
-% n = 15000;  
-Streu = [0.5,pi/4];
-New_Pose = Resample(n,wN,INN,Streu);
-hold on
-scatter(New_Pose(:,1),New_Pose(:,2), '.b')
+newL = 500;
+w2 = (wN*newL);
+[w2s, idx]=sort(w2, 'descend');
+New_Pose = zeros(newL,3);
+num_of_Pose = 0;
+index = 1;
+WEIGHT=floor(w2s);
 
-Init = New_Pose;
-n = floor(n*0.8);
+while num_of_Pose < 500
+    number = WEIGHT(index);
+    
+    if number ~= 0
+        for j = 1:number
+            New_Pose(num_of_Pose+j,:) = INN(idx(index),:);
+        end
+    else
+        New_Pose(num_of_Pose+1,:) = INN(idx(index),:);
+    end
+    num_of_Pose =num_of_Pose + number; 
+    index = index+1;
 end
 
 

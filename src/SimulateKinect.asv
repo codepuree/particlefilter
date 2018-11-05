@@ -49,7 +49,8 @@ if isempty(angles)
     angles = (theta - angleRange / 2) : angleRange / angleSteps : (theta + angleRange / 2);
 else
     angles = p.Results.angles;
-    angles = theta + angles; 
+    %angles = angles + pi / 2;
+    angles = angles - theta; 
 end
 
 intersectionPts = rayIntersection(map, pose, angles, maxRange);
@@ -64,7 +65,7 @@ rhosIndices = rhos < minRange;
 thetas(rhosIndices) = NaN;
 rhos(rhosIndices)   = NaN;
 
-thetas_test = thetas - theta;
+thetas = thetas - theta;
 
 xs = intersectionPts(rhosIndices, 1);
 ys = intersectionPts(rhosIndices, 2);
