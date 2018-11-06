@@ -5,11 +5,11 @@ w2 = (weights*(n));
 New_Pose = zeros(n,3);
 num_of_Pose = 0;
 index = 1;
-WEIGHT=floor(w2s+0.5);
+WEIGHT=ceil(w2s);
 % help = 10000;
 % test_weight = floor(w2s+0.5);
 % test_weight = (ceil(test_weight))/help;
-counter = 0;
+% counter = 0;
 % while (sum(WEIGHT) < n)
 %    w2s = w2s +0.00001; 
 %    WEIGHT = floor(w2s+0.5);
@@ -21,17 +21,26 @@ while num_of_Pose < n
     number = WEIGHT(index);
     
     if number ~= 0
-        New_Pose(num_of_Pose+1,:) = Poses(idx(index),:);
-        for j = 2:number
-            s = rand(1)* Streu(1)-Streu(1)/2;
-            ang = rand(1)*Streu(2)-Streu(2)/2;
-            [x,y]= pol2cart(ang + Poses(idx(index),3),s);
-            New_Pose(num_of_Pose+j,1) = Poses(idx(index),1) + x;
-            New_Pose(num_of_Pose+j,2) = Poses(idx(index),2) + y;
-            New_Pose(num_of_Pose+j,3) = Poses(idx(index),3) + ang;
+        num_of_Pose = num_of_Pose + 1;
+        New_Pose(num_of_Pose,:) = Poses(idx(index),:);
+        
+        for j = 1:number - 1
+%             s = randn(1) * Streu(1);
+            ang = randn(1)*Streu(3)-Streu(3)/2;
+            x = randn() / 5 * Streu(1);
+            y = randn() / 5 * Streu(2);
+%             [x,y]= pol2cart(ang + Poses(idx(index),3),s);
+            
+            num_of_Pose = num_of_Pose + 1;
+            New_Pose(num_of_Pose,1) = Poses(idx(index),1) + x;
+            New_Pose(num_of_Pose,2) = Poses(idx(index),2) + y;
+            New_Pose(num_of_Pose,3) = Poses(idx(index),3) + ang;
 %             New_Pose(num_of_Pose+j,:) = Poses(idx(index),:) + pol2cart(rand(1), rand(1) * 0.5);
-        end
-        num_of_Pose =num_of_Pose + number; 
+
+            if num_of_Pose >= n
+                break;
+            end
+        end 
     else
         num_of_Pose =num_of_Pose + 1; 
         New_Pose(num_of_Pose,:) = Poses(idx(index),:);

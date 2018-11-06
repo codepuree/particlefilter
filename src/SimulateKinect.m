@@ -27,7 +27,7 @@ validateAngles   = @(x) validateattributes(x, {'double'}, {'nonempty'});
 addOptional(p, 'angles', defaultValAngles, validateAngles);
 
 % Angle steps name-value pair
-defaultValAnglesteps = 50;
+defaultValAnglesteps = 10;
 validateAnglesteps   = @(x) validateattributes(x, {'double'}, {'nonempty'});
 addOptional(p, 'anglesteps', defaultValAnglesteps, validateAnglesteps);
 
