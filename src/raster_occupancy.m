@@ -40,10 +40,13 @@ n_0 = floor(length(Init)*Faktor);
 n = n_0;
 %%
 
-while (iteration < 15)
+while (iteration < 25)
 [New_Pose,Test_pose,iteration] = Iteration_proc(Init,move,grid,n,num_subp,Test_pose,iteration,Streu3,process,limes);   
 Init = New_Pose;
 n = max(floor(n*Faktor), 500);
+if (iteration == 10)
+    move = [0,0,0];
+end
 end
 delete(poolObj);
 

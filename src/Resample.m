@@ -5,7 +5,8 @@ w2 = (weights*(n));
 New_Pose = zeros(n,3);
 num_of_Pose = 0;
 index = 1;
-WEIGHT=ceil(w2s);
+gewicht = w2s-0.5;
+WEIGHT=ceil(gewicht);
 % help = 10000;
 % test_weight = floor(w2s+0.5);
 % test_weight = (ceil(test_weight))/help;
@@ -15,6 +16,10 @@ WEIGHT=ceil(w2s);
 %    WEIGHT = floor(w2s+0.5);
 %    counter = counter+1;
 % end
+if (n < 700)
+    disp(['N: ',num2str(n)]);
+    disp(['Summe der Gewichte: ',num2str(sum(WEIGHT))]);
+end
 
 
 while num_of_Pose < n
