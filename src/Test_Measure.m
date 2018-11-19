@@ -7,7 +7,7 @@ rho_S = NaN(0);
 
     
 if process 
-    [theta_S,rho_S,~,~] = SimulateKinect(grid, Test_pose);    %,'maxrange',50
+    [theta_S,rho_S,~,~] = SimulateKinect(grid, Test_pose, 'anglerange', deg2rad(180));    %,'maxrange',50
 
     if nnz(~isnan(rho_S)) / length(rho_S) < limes  - 0.05
             result = false;

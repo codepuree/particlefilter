@@ -1,0 +1,28 @@
+Elapsed time is 0.011990 seconds.
+Elapsed time is 200.265180 seconds.
+
+figure Visible off 
+Elapsed time is 0.011985 seconds.
+Elapsed time is 197.098030 seconds.
+
+jede iteration
+Elapsed time is 0.013458 seconds.
+Elapsed time is 95.944704 seconds.
+Elapsed time is 21.757103 seconds.
+Elapsed time is 18.348232 seconds.
+Elapsed time is 15.659589 seconds.
+Elapsed time is 13.479206 seconds.
+Elapsed time is 11.842159 seconds.
+Elapsed time is 10.080138 seconds.
+Elapsed time is 8.432078 seconds.
+jede iteraton ohne figure
+Elapsed time is 0.011809 seconds.
+Elapsed time is 45.399874 seconds.
+Elapsed time is 38.102784 seconds.
+Elapsed time is 31.646952 seconds.
+Elapsed time is 26.372754 seconds.
+Elapsed time is 22.204895 seconds.
+Elapsed time is 18.784628 seconds.
+Elapsed time is 15.828475 seconds.
+Elapsed time is 13.307768 seconds.
+Elapsed time is 11.685473 seconds.

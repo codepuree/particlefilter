@@ -5,32 +5,29 @@ w2 = (weights*(n));
 New_Pose = zeros(n,3);
 num_of_Pose = 0;
 index = 1;
-WEIGHT=ceil(w2s);
-% help = 10000;
-% test_weight = floor(w2s+0.5);
-% test_weight = (ceil(test_weight))/help;
-% counter = 0;
-% while (sum(WEIGHT) < n)
-%    w2s = w2s +0.00001; 
-%    WEIGHT = floor(w2s+0.5);
-%    counter = counter+1;
-% end
+gewicht = w2s-0.5;
+WEIGHT=ceil(gewicht);
+
+if (n < 700)
+    disp(['N: ',num2str(n)]);
+    disp(['Summe der Gewichte: ',num2str(sum(WEIGHT))]);
+end
 
 
 while num_of_Pose < n
     number = WEIGHT(index);
     
     if number ~= 0
+        particel = Poses(idx(index),:);
         num_of_Pose = num_of_Pose + 1;
-        New_Pose(num_of_Pose,:) = Poses(idx(index),:);
+        New_Pose(num_of_Pose,:) = particle;
         
         for j = 1:number - 1
-%             s = randn(1) * Streu(1);
+
             ang = randn(1)*Streu(3)-Streu(3)/2;
             x = randn() / 5 * Streu(1);
             y = randn() / 5 * Streu(2);
-%             [x,y]= pol2cart(ang + Poses(idx(index),3),s);
-            
+
             num_of_Pose = num_of_Pose + 1;
             New_Pose(num_of_Pose,1) = Poses(idx(index),1) + x;
             New_Pose(num_of_Pose,2) = Poses(idx(index),2) + y;
@@ -45,7 +42,8 @@ while num_of_Pose < n
         num_of_Pose =num_of_Pose + 1; 
         New_Pose(num_of_Pose,:) = Poses(idx(index),:);
     end
-    index = index+1;
+    
+    index = index + 1;
 end
 end
 
