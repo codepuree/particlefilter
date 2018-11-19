@@ -43,6 +43,7 @@ n = n_0;
 max_i = 14;
 %%
 
+<<<<<<< HEAD
 while (iteration < max_i)
     tps(iteration, :) = Test_pose;
     [New_Pose,Test_pose,iteration] = Iteration_proc(Init,move,grid,n,num_subp,Test_pose,iteration,Streu3,process,limes,max_i);   
@@ -53,6 +54,15 @@ while (iteration < max_i)
     % end
     fprintf('TP(%.3f/%.3f) - Mean X: %.3f - Mean Y: %.3f\n',Test_pose(1),Test_pose(2), mean(Init(:,1)),mean(Init(:,2)));
     frames(iteration) = getframe(gcf);
+=======
+while (iteration < 25)
+[New_Pose,Test_pose,iteration] = Iteration_proc(Init,move,grid,n,num_subp,Test_pose,iteration,Streu3,process,limes);   
+Init = New_Pose;
+n = max(floor(n*Faktor), 500);
+if (iteration == 10)
+    move = [0,0,0];
+end
+>>>>>>> b937192b366b17f90c4bd126653b168c31b3759d
 end
 delete(poolObj);
 
