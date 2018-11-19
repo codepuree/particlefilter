@@ -8,17 +8,21 @@ index = 1;
 gewicht = w2s-0.5;
 WEIGHT=ceil(gewicht);
 
-if (n < 700)
+% if (n < 700)
     disp(['N: ',num2str(n)]);
     disp(['Summe der Gewichte: ',num2str(sum(WEIGHT))]);
-end
+% end
 
 
 while num_of_Pose < n
-    number = WEIGHT(index);
+
+    if (index > length(WEIGHT))
+       index = 1;
+    end
+     number = WEIGHT(index);
     
     if number ~= 0
-        particel = Poses(idx(index),:);
+        particle = Poses(idx(index),:);
         num_of_Pose = num_of_Pose + 1;
         New_Pose(num_of_Pose,:) = particle;
         

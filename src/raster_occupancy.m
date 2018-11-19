@@ -21,7 +21,6 @@ hold on
 orient = 0:pi/18:2*pi;%0:6*rho:60*rho;
 iteration = 1;
 num_subp = 4;
-Streu = [0.4,pi/16];
 Streu3 = [0.4,0.4,pi/8];
 Faktor = 0.7;
 process = 1;    %%process 1 = calc, 0 = load data;
@@ -35,7 +34,7 @@ Init = Initialization(grid,orient);
 
 %% Movement
 move = [0, -0.5];  % delta x,y[m] & o[rad]: 0.5,0 & 0
-% move_2 = [0.5,];    %polar
+
 Test_pose = [39.83, 10.47, -1.1];
 
 n_0 = floor(length(Init)*Faktor);
