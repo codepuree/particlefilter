@@ -1,0 +1,89 @@
+2018-11-19 12:50:49:750> Starting measure point cloud mission 'kurve'...
+
+2018-11-19 12:50:59:476> Taking measurement 1...
+2018-11-19 12:51:03:850> The point cloud consists of 115522 points.
+2018-11-19 12:51:05:556> Finished writing point cloud number 1 to '../Data/kurve/kurve_01.ply'.
+
+2018-11-19 12:51:25:151> Taking measurement 2...
+2018-11-19 12:51:26:723> The point cloud consists of 100441 points.
+2018-11-19 12:51:27:450> Finished writing point cloud number 2 to '../Data/kurve/kurve_02.ply'.
+
+2018-11-19 12:51:47:781> Taking measurement 3...
+2018-11-19 12:51:49:350> The point cloud consists of 104403 points.
+2018-11-19 12:51:50:056> Finished writing point cloud number 3 to '../Data/kurve/kurve_03.ply'.
+
+2018-11-19 12:52:12:384> Taking measurement 4...
+2018-11-19 12:52:13:999> The point cloud consists of 102209 points.
+2018-11-19 12:52:14:636> Finished writing point cloud number 4 to '../Data/kurve/kurve_04.ply'.
+
+2018-11-19 12:52:32:878> Taking measurement 5...
+2018-11-19 12:52:34:297> The point cloud consists of 82007 points.
+2018-11-19 12:52:35:064> Finished writing point cloud number 5 to '../Data/kurve/kurve_05.ply'.
+
+2018-11-19 12:53:01:580> Taking measurement 6...
+2018-11-19 12:53:02:981> The point cloud consists of 85547 points.
+2018-11-19 12:53:03:561> Finished writing point cloud number 6 to '../Data/kurve/kurve_06.ply'.
+
+2018-11-19 12:53:23:786> Taking measurement 7...
+2018-11-19 12:53:25:368> The point cloud consists of 100720 points.
+2018-11-19 12:53:25:986> Finished writing point cloud number 7 to '../Data/kurve/kurve_07.ply'.
+
+2018-11-19 12:53:46:052> Taking measurement 8...
+2018-11-19 12:53:48:096> The point cloud consists of 115288 points.
+2018-11-19 12:53:48:667> Finished writing point cloud number 8 to '../Data/kurve/kurve_08.ply'.
+
+2018-11-19 12:54:12:921> Taking measurement 9...
+2018-11-19 12:54:14:382> The point cloud consists of 92861 points.
+2018-11-19 12:54:14:947> Finished writing point cloud number 9 to '../Data/kurve/kurve_09.ply'.
+
+2018-11-19 12:54:33:420> Taking measurement 10...
+2018-11-19 12:54:34:607> The point cloud consists of 71727 points.
+2018-11-19 12:54:35:187> Finished writing point cloud number 10 to '../Data/kurve/kurve_10.ply'.
+
+2018-11-19 12:54:52:143> Taking measurement 11...
+2018-11-19 12:54:53:302> The point cloud consists of 69566 points.
+2018-11-19 12:54:53:842> Finished writing point cloud number 11 to '../Data/kurve/kurve_11.ply'.
+
+2018-11-19 12:55:14:998> Taking measurement 12...
+2018-11-19 12:55:16:616> The point cloud consists of 99482 points.
+2018-11-19 12:55:17:204> Finished writing point cloud number 12 to '../Data/kurve/kurve_12.ply'.
+
+2018-11-19 12:55:43:578> Taking measurement 13...
+2018-11-19 12:55:45:699> The point cloud consists of 146705 points.
+2018-11-19 12:55:46:356> Finished writing point cloud number 13 to '../Data/kurve/kurve_13.ply'.
+
+2018-11-19 12:56:04:290> Taking measurement 14...
+2018-11-19 12:56:05:897> The point cloud consists of 102637 points.
+2018-11-19 12:56:06:465> Finished writing point cloud number 14 to '../Data/kurve/kurve_14.ply'.
+
+2018-11-19 12:56:22:671> Taking measurement 15...
+2018-11-19 12:56:24:948> The point cloud consists of 152237 points.
+2018-11-19 12:56:25:566> Finished writing point cloud number 15 to '../Data/kurve/kurve_15.ply'.
+
+2018-11-19 12:56:42:644> Taking measurement 16...
+2018-11-19 12:56:44:985> The point cloud consists of 155823 points.
+2018-11-19 12:56:45:574> Finished writing point cloud number 16 to '../Data/kurve/kurve_16.ply'.
+
+2018-11-19 12:57:04:744> Taking measurement 17...
+2018-11-19 12:57:07:012> The point cloud consists of 141374 points.
+2018-11-19 12:57:07:695> Finished writing point cloud number 17 to '../Data/kurve/kurve_17.ply'.
+
+2018-11-19 12:57:23:123> Taking measurement 18...
+2018-11-19 12:57:25:552> The point cloud consists of 156355 points.
+2018-11-19 12:57:26:192> Finished writing point cloud number 18 to '../Data/kurve/kurve_18.ply'.
+
+2018-11-19 12:57:46:520> Taking measurement 19...
+2018-11-19 12:57:47:905> The point cloud consists of 84444 points.
+2018-11-19 12:57:48:459> Finished writing point cloud number 19 to '../Data/kurve/kurve_19.ply'.
+
+2018-11-19 12:58:05:362> Taking measurement 20...
+2018-11-19 12:58:06:835> The point cloud consists of 93903 points.
+2018-11-19 12:58:07:410> Finished writing point cloud number 20 to '../Data/kurve/kurve_20.ply'.
+
+2018-11-19 12:58:38:105> Taking measurement 21...
+2018-11-19 12:58:40:175> The point cloud consists of 103427 points.
+2018-11-19 12:58:40:769> Finished writing point cloud number 21 to '../Data/kurve/kurve_21.ply'.
+
+2018-11-19 12:59:18:067> Taking measurement 22...
+2018-11-19 12:59:19:594> The point cloud consists of 77301 points.
+2018-11-19 12:59:20:150> Finished writing point cloud number 22 to '../Data/kurve/kurve_22.ply'.

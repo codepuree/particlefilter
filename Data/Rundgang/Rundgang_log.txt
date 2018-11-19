@@ -1,0 +1,163 @@
+2018-11-19 12:09:10:625> Starting measure point cloud mission 'Rundgang'...
+
+2018-11-19 12:11:30:675> Taking measurement 1...
+2018-11-19 12:11:34:667> The point cloud consists of 74593 points.
+2018-11-19 12:11:36:797> Finished writing point cloud number 1 to '../Data/Rundgang/Rundgang_01.ply'.
+
+2018-11-19 12:12:39:398> Taking measurement 2...
+2018-11-19 12:12:41:438> The point cloud consists of 80410 points.
+2018-11-19 12:12:42:367> Finished writing point cloud number 2 to '../Data/Rundgang/Rundgang_02.ply'.
+
+2018-11-19 12:13:03:307> Taking measurement 3...
+2018-11-19 12:13:04:856> The point cloud consists of 73029 points.
+2018-11-19 12:13:05:793> Finished writing point cloud number 3 to '../Data/Rundgang/Rundgang_03.ply'.
+
+2018-11-19 12:13:25:685> Taking measurement 4...
+2018-11-19 12:13:27:683> The point cloud consists of 99438 points.
+2018-11-19 12:13:28:470> Finished writing point cloud number 4 to '../Data/Rundgang/Rundgang_04.ply'.
+
+2018-11-19 12:14:10:055> Taking measurement 5...
+2018-11-19 12:14:12:369> The point cloud consists of 98382 points.
+2018-11-19 12:14:13:327> Finished writing point cloud number 5 to '../Data/Rundgang/Rundgang_05.ply'.
+
+2018-11-19 12:14:41:512> Taking measurement 6...
+2018-11-19 12:14:43:696> The point cloud consists of 99329 points.
+2018-11-19 12:14:44:421> Finished writing point cloud number 6 to '../Data/Rundgang/Rundgang_06.ply'.
+
+2018-11-19 12:18:25:522> Taking measurement 7...
+2018-11-19 12:18:27:947> The point cloud consists of 91311 points.
+2018-11-19 12:18:28:658> Finished writing point cloud number 7 to '../Data/Rundgang/Rundgang_07.ply'.
+
+2018-11-19 12:18:58:462> Taking measurement 8...
+2018-11-19 12:19:00:534> The point cloud consists of 92142 points.
+2018-11-19 12:19:01:173> Finished writing point cloud number 8 to '../Data/Rundgang/Rundgang_08.ply'.
+
+2018-11-19 12:19:36:602> Taking measurement 9...
+2018-11-19 12:19:38:425> The point cloud consists of 83319 points.
+2018-11-19 12:19:39:068> Finished writing point cloud number 9 to '../Data/Rundgang/Rundgang_09.ply'.
+
+2018-11-19 12:20:13:944> Taking measurement 10...
+2018-11-19 12:20:15:832> The point cloud consists of 84983 points.
+2018-11-19 12:20:16:477> Finished writing point cloud number 10 to '../Data/Rundgang/Rundgang_10.ply'.
+
+2018-11-19 12:20:42:639> Taking measurement 11...
+2018-11-19 12:20:44:207> The point cloud consists of 80878 points.
+2018-11-19 12:20:44:846> Finished writing point cloud number 11 to '../Data/Rundgang/Rundgang_11.ply'.
+
+2018-11-19 12:21:56:363> Taking measurement 12...
+2018-11-19 12:21:58:229> The point cloud consists of 75353 points.
+2018-11-19 12:21:58:904> Finished writing point cloud number 12 to '../Data/Rundgang/Rundgang_12.ply'.
+
+2018-11-19 12:22:22:410> Taking measurement 13...
+2018-11-19 12:22:24:051> The point cloud consists of 78621 points.
+2018-11-19 12:22:24:732> Finished writing point cloud number 13 to '../Data/Rundgang/Rundgang_13.ply'.
+
+2018-11-19 12:22:47:819> Taking measurement 14...
+2018-11-19 12:22:49:477> The point cloud consists of 82753 points.
+2018-11-19 12:22:50:144> Finished writing point cloud number 14 to '../Data/Rundgang/Rundgang_14.ply'.
+
+2018-11-19 12:23:20:266> Taking measurement 15...
+2018-11-19 12:23:21:961> The point cloud consists of 84698 points.
+2018-11-19 12:23:22:653> Finished writing point cloud number 15 to '../Data/Rundgang/Rundgang_15.ply'.
+
+2018-11-19 12:23:44:438> Taking measurement 16...
+2018-11-19 12:23:46:356> The point cloud consists of 101437 points.
+2018-11-19 12:23:47:031> Finished writing point cloud number 16 to '../Data/Rundgang/Rundgang_16.ply'.
+
+2018-11-19 12:24:18:604> Taking measurement 17...
+2018-11-19 12:24:20:620> The point cloud consists of 84647 points.
+2018-11-19 12:24:21:254> Finished writing point cloud number 17 to '../Data/Rundgang/Rundgang_17.ply'.
+
+2018-11-19 12:24:52:137> Taking measurement 18...
+2018-11-19 12:24:53:985> The point cloud consists of 96310 points.
+2018-11-19 12:24:54:647> Finished writing point cloud number 18 to '../Data/Rundgang/Rundgang_18.ply'.
+
+2018-11-19 12:25:56:742> Taking measurement 19...
+2018-11-19 12:25:58:879> The point cloud consists of 97104 points.
+2018-11-19 12:25:59:591> Finished writing point cloud number 19 to '../Data/Rundgang/Rundgang_19.ply'.
+
+2018-11-19 12:26:36:830> Taking measurement 20...
+2018-11-19 12:26:39:120> The point cloud consists of 96832 points.
+2018-11-19 12:26:39:733> Finished writing point cloud number 20 to '../Data/Rundgang/Rundgang_20.ply'.
+
+2018-11-19 12:27:30:986> Taking measurement 21...
+2018-11-19 12:27:33:175> The point cloud consists of 98010 points.
+2018-11-19 12:27:33:841> Finished writing point cloud number 21 to '../Data/Rundgang/Rundgang_21.ply'.
+
+2018-11-19 12:29:42:527> Taking measurement 22...
+2018-11-19 12:29:44:262> The point cloud consists of 88237 points.
+2018-11-19 12:29:44:925> Finished writing point cloud number 22 to '../Data/Rundgang/Rundgang_22.ply'.
+
+2018-11-19 12:30:45:132> Taking measurement 23...
+2018-11-19 12:30:46:998> The point cloud consists of 79852 points.
+2018-11-19 12:30:47:616> Finished writing point cloud number 23 to '../Data/Rundgang/Rundgang_23.ply'.
+
+2018-11-19 12:31:12:109> Taking measurement 24...
+2018-11-19 12:31:13:636> The point cloud consists of 80244 points.
+2018-11-19 12:31:14:272> Finished writing point cloud number 24 to '../Data/Rundgang/Rundgang_24.ply'.
+
+2018-11-19 12:31:44:138> Taking measurement 25...
+2018-11-19 12:31:45:940> The point cloud consists of 91337 points.
+2018-11-19 12:31:46:594> Finished writing point cloud number 25 to '../Data/Rundgang/Rundgang_25.ply'.
+
+2018-11-19 12:32:10:950> Taking measurement 26...
+2018-11-19 12:32:12:565> The point cloud consists of 85666 points.
+2018-11-19 12:32:13:226> Finished writing point cloud number 26 to '../Data/Rundgang/Rundgang_26.ply'.
+
+2018-11-19 12:32:53:895> Taking measurement 27...
+2018-11-19 12:32:55:599> The point cloud consists of 77194 points.
+2018-11-19 12:32:56:234> Finished writing point cloud number 27 to '../Data/Rundgang/Rundgang_27.ply'.
+
+2018-11-19 12:33:38:413> Taking measurement 28...
+2018-11-19 12:33:40:119> The point cloud consists of 73608 points.
+2018-11-19 12:33:40:745> Finished writing point cloud number 28 to '../Data/Rundgang/Rundgang_28.ply'.
+
+2018-11-19 12:34:01:255> Taking measurement 29...
+2018-11-19 12:34:02:767> The point cloud consists of 74779 points.
+2018-11-19 12:34:03:395> Finished writing point cloud number 29 to '../Data/Rundgang/Rundgang_29.ply'.
+
+2018-11-19 12:34:34:260> Taking measurement 30...
+2018-11-19 12:34:36:147> The point cloud consists of 83352 points.
+2018-11-19 12:34:36:756> Finished writing point cloud number 30 to '../Data/Rundgang/Rundgang_30.ply'.
+
+2018-11-19 12:34:58:390> Taking measurement 31...
+2018-11-19 12:34:59:978> The point cloud consists of 84907 points.
+2018-11-19 12:35:00:635> Finished writing point cloud number 31 to '../Data/Rundgang/Rundgang_31.ply'.
+
+2018-11-19 12:35:37:109> Taking measurement 32...
+2018-11-19 12:35:38:754> The point cloud consists of 86059 points.
+2018-11-19 12:35:39:425> Finished writing point cloud number 32 to '../Data/Rundgang/Rundgang_32.ply'.
+
+2018-11-19 12:36:25:582> Taking measurement 33...
+2018-11-19 12:36:27:536> The point cloud consists of 85951 points.
+2018-11-19 12:36:28:258> Finished writing point cloud number 33 to '../Data/Rundgang/Rundgang_33.ply'.
+
+2018-11-19 12:36:46:510> Taking measurement 34...
+2018-11-19 12:36:48:100> The point cloud consists of 81665 points.
+2018-11-19 12:36:48:753> Finished writing point cloud number 34 to '../Data/Rundgang/Rundgang_34.ply'.
+
+2018-11-19 12:37:17:692> Taking measurement 35...
+2018-11-19 12:37:19:759> The point cloud consists of 89907 points.
+2018-11-19 12:37:20:450> Finished writing point cloud number 35 to '../Data/Rundgang/Rundgang_35.ply'.
+
+2018-11-19 12:37:47:143> Taking measurement 36...
+2018-11-19 12:37:51:523> The point cloud consists of 257055 points.
+2018-11-19 12:37:52:316> Finished writing point cloud number 36 to '../Data/Rundgang/Rundgang_36.ply'.
+
+2018-11-19 12:38:19:737> Taking measurement 37...
+2018-11-19 12:38:24:107> The point cloud consists of 255439 points.
+2018-11-19 12:38:24:946> Finished writing point cloud number 37 to '../Data/Rundgang/Rundgang_37.ply'.
+
+2018-11-19 12:39:11:972> Taking measurement 38...
+2018-11-19 12:39:16:550> The point cloud consists of 251767 points.
+2018-11-19 12:39:17:347> Finished writing point cloud number 38 to '../Data/Rundgang/Rundgang_38.ply'.
+
+2018-11-19 12:39:56:054> Taking measurement 39...
+2018-11-19 12:40:00:692> The point cloud consists of 252301 points.
+2018-11-19 12:40:01:483> Finished writing point cloud number 39 to '../Data/Rundgang/Rundgang_39.ply'.
+
+2018-11-19 12:40:45:667> Taking measurement 40...
+2018-11-19 12:40:50:416> The point cloud consists of 260953 points.
+2018-11-19 12:40:51:296> Finished writing point cloud number 40 to '../Data/Rundgang/Rundgang_40.ply'.
+'c'
+>> 
