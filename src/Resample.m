@@ -7,19 +7,7 @@ num_of_Pose = 0;
 index = 1;
 gewicht = w2s-0.5;
 WEIGHT=ceil(gewicht);
-<<<<<<< HEAD
 
-=======
-% help = 10000;
-% test_weight = floor(w2s+0.5);
-% test_weight = (ceil(test_weight))/help;
-% counter = 0;
-% while (sum(WEIGHT) < n)
-%    w2s = w2s +0.00001; 
-%    WEIGHT = floor(w2s+0.5);
-%    counter = counter+1;
-% end
->>>>>>> b937192b366b17f90c4bd126653b168c31b3759d
 if (n < 700)
     disp(['N: ',num2str(n)]);
     disp(['Summe der Gewichte: ',num2str(sum(WEIGHT))]);
