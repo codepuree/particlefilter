@@ -54,17 +54,18 @@ if process
             end
 
             out{i} = arrayfun(@(m) diffDist(grid, Init(m,:), theta_S, rho_S,limes), start:stop);
-            out2{i} = arrayfun(@(m) Dist_L(grid,Init(m,:), theta_S, rho_S,limes), start:stop);
+%             out2{i} = arrayfun(@(m) Dist_L(grid,Init(m,:), theta_S, rho_S,limes), start:stop);
         end
 
         for i=1:length(out)
            antw = horzcat(antw,out{i}); 
         end
         
-        for j = 1:length(out2)
-            antw2 = horzcat(antw2,out2{j});
-        end
+%         for j = 1:length(out2)
+%             antw2 = horzcat(antw2,out2{j});
+%         end
         antw = antw';
+%         antw= antw2';
         pause(1);
         save('../Data/Test_MeasureV.mat','antw','theta_S','rho_S');
     end
@@ -77,17 +78,23 @@ end
 function [dist] = diffDist(grid, pose, theta_S, rho_S,limes)
     [~, rhos,~,~] = SimulateKinect(grid, pose,'angles',theta_S);
     distV = (rho_S - rhos).^2;
+    distV = abs(rho_S - rhos);
+%     distV ( isnan(rho_S) & isnan(rhos) ) = 1;
     if (nnz(~isnan(distV))/length(distV)) > limes
         distVnn = distV(~isnan(distV));
         dist = sqrt(sum(distVnn) / length(distVnn));
     else
         dist = NaN;
     end
+%     dist = nansum(1-abs(rho_S-rhos)./5) / length(rhos);
+
+
 end
 
 function [dist] = Dist_L(grid, pose, theta_S,rho_S,limes)
     [~, rhos,~,~] = SimulateKinect(grid, pose,'angles',theta_S);
     distance = abs(rho_S - rhos);
+    distance ( isnan(rho_S) & isnan(rhos) ) = 1;
     if (nnz(~isnan(distance))/length(distance)) > limes
         distanceV = distance(~isnan(distance));
         dist = (sum(distanceV) / length(distanceV));

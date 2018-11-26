@@ -34,7 +34,7 @@ Init = Initialization(grid,orient);
 
 %% Movement
 move = [0, 0.5];  % delta x,y[m] & o[rad]: 0.5,0 & 0
-Test_pose = [39.83, 10.47, -1.1];
+Test_pose = [39.83, 10.47, -1.1+pi];
 
 n_0 = floor(length(Init)*Faktor);
 n = n_0;
@@ -42,7 +42,7 @@ measure = 'simulate';   % Simualtion = simulate; Load = name {kurve,Rundgang}; M
 if ~strcmpi(measure,'simulate') && ~strcmpi(measure,'measure')
     max_i = length(dir(['../Data/' measure '/*.ply']));
 else
-    max_i = 14;
+    max_i = 35;
 end
 %%
 
@@ -50,7 +50,7 @@ while (iteration < max_i)
     tps(iteration, :) = Test_pose;
     [New_Pose,Test_pose,iteration] = Iteration_proc(Init,move,grid,n,num_subp,Test_pose,iteration,Streu3,process,limes,max_i,measure);   
     Init = New_Pose;
-    n = max(floor(n*Faktor), 1000);
+    n = max(floor(n*Faktor), 3000);
     % if (iteration == 10)
     %     move = [0,0,0];
     % end

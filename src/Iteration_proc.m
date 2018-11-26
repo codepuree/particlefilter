@@ -85,8 +85,10 @@ legend()
 
 
 % scatter(New_Pose(:,1),New_Pose(:,2), '.b')
-% hold on
-% scatter(Test_pose(1),Test_pose(2), 'xr')
+[u,v] = pol2cart(Test_pose(3), 4);
+hold on
+quiver(Test_pose(1),Test_pose(2), u, v)
+scatter(Test_pose(1),Test_pose(2), 'xr')
 % hold on
 % scatter(tpo(1),tpo(2), 'xy')
 title(['Iteration: ',num2str(iteration) 10 'Particle: ' num2str(length(New_Pose))]);
