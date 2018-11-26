@@ -31,10 +31,18 @@ for file = files'
     subplot(1, 3, 2);
     ptCloudFlattend = FlattenPointCloud(GetCrossProfile(ptCloudLoaded, -0.3, 0.3));
     scatter(ptCloudFlattend.Location(:, 1), ptCloudFlattend.Location(:, 3), '.');
-    daspect([1, 1, 1])
-    subplot(1, 3, 3);
-    polarplot(thetas, rhos, 'xb');
-    countScans = countScans +1;
+    [winkel,Radius] = cart2pol(ptCloudFlattend.Location(:, 1), ptCloudFlattend.Location(:, 3));
+    half_range = 28;
+    bin = deg2rad(-half_range:half_range/30:half_range)+pi/2;
+    for i = 1:length(Radius)-1
+       subplot(1,3,3);
+       output = (Radius(winkel(:) > bin(i) & winkel(:)< bin(i+1) ))
+%        histogram (Radius(winkel(:) > bin(i) & winkel(:)< bin(i+1) ));
+    end
+%     daspect([1, 1, 1])
+%     subplot(1, 3, 3);
+%     polarplot(thetas, rhos, 'xb');
+%     countScans = countScans +1;
     pause(0.25);
 end
 

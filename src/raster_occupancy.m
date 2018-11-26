@@ -38,8 +38,8 @@ Test_pose = [39.83, 10.47, -1.1];
 
 n_0 = floor(length(Init)*Faktor);
 n = n_0;
-measure = 'kurve';   % Simualtion = simulate; Load = name {kurve,Rundgang}; Measurement = 'measure';
-if ~strcmpi(measure,'simualte') && ~strcmpi(measure,'measure')
+measure = 'simulate';   % Simualtion = simulate; Load = name {kurve,Rundgang}; Measurement = 'measure';
+if ~strcmpi(measure,'simulate') && ~strcmpi(measure,'measure')
     max_i = length(dir(['../Data/' measure '/*.ply']));
 else
     max_i = 14;
@@ -55,7 +55,7 @@ while (iteration < max_i)
     %     move = [0,0,0];
     % end
     fprintf('TP(%.3f/%.3f) - Mean X: %.3f - Mean Y: %.3f\n',Test_pose(1),Test_pose(2), mean(Init(:,1)),mean(Init(:,2)));
-    frames(iteration) = getframe(gcf);
+%     frames(iteration) = getframe(gcf);
 end
 delete(poolObj);
 
@@ -63,12 +63,12 @@ delete(poolObj);
 % show(grid);
 % hold on;
 % scatter(tps(:, 1), tps(:, 2), 'xg');
-
-writerObj = VideoWriter('./particleFilter.mp4', 'MPEG-4');
-writerObj.FrameRate = 2; % sets the seconds per image
-
-open(writerObj);
-for i = 2 : length(frames)
-    writeVideo(writerObj, frames(i));
-end
-close(writerObj);
+% 
+% writerObj = VideoWriter('./particleFilter.mp4', 'MPEG-4');
+% writerObj.FrameRate = 2; % sets the seconds per image
+% 
+% open(writerObj);
+% for i = 2 : length(frames)
+%     writeVideo(writerObj, frames(i));
+% end
+% close(writerObj);
