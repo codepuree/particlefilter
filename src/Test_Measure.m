@@ -1,10 +1,10 @@
 function [antw,theta_S,rho_S,result] = Test_Measure(Test_pose,grid,Init, process,limes,measure, iteration)
 
-result = true;
-antw = NaN(0);
-antw2 = NaN(0);
+result  = true;
+antw    = NaN(0);
+antw2   = NaN(0);
 theta_S = NaN(0);
-rho_S = NaN(0);
+rho_S   = NaN(0);
 
     
 if process

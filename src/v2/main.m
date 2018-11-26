@@ -18,6 +18,7 @@ while iteration < max_iteration
     measurement = GetMeasurement();
     
     particles = Particlefilter(map, particles,measurement);
+    disp(['Iteration ' num2str(iteration) ': ' num2str(length(particles))]);
     
     iteration = iteration + 1;
 end
