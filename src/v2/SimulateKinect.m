@@ -46,7 +46,7 @@ angleSteps = p.Results.anglesteps;
 angleRange = p.Results.anglerange;
 
 if isempty(angles)
-    angles = -angleRange / 2 : angleRange / angleSteps : angleRange / 2;
+    angles = -angleRange / 2 : angleRange / (angleSteps - 1) : angleRange / 2;
 else
     angles = p.Results.angles;
 end

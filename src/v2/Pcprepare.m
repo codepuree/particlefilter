@@ -26,7 +26,7 @@ if length(thetas) > numElements
 %     disp(['thetaMin: ' num2str(thetaMin) '(' num2str(rad2deg(thetaMin)) ')']);
 %     disp(['thetaMax: ' num2str(thetaMax) '(' num2str(rad2deg(thetaMax)) ')']);
 
-    thetasSampled = double(linspace(thetaMin, thetaMax, numElements)');
+    thetasSampled = double(linspace(thetaMin, thetaMax, numElements-1)');
     rhosSampled   = double(arrayfun(@(x) nanmedian(rhos(thetas > x & thetas < (x + thetaDiff / numElements))), thetasSampled));
 else
     warning(['length(thetas) > numElements is FALSE; thetas.length: ' length(thetas) ' numElements: ' numElements]);

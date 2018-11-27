@@ -87,8 +87,6 @@ function [dist] = diffDist(grid, pose, theta_S, rho_S,limes)
         dist = NaN;
     end
 %     dist = nansum(1-abs(rho_S-rhos)./5) / length(rhos);
-
-
 end
 
 function [dist] = Dist_L(grid, pose, theta_S,rho_S,limes)

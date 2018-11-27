@@ -11,9 +11,7 @@ toc(tic1)
 rIdxOcc   = raster < 0.5;
 free_raster       = mesh(rIdxOcc, :);
 
-scatter(free_raster(:,1),free_raster(:,2), '*r');
 [r_f,~]=size(free_raster);
-
 
 %%  1.Initalisierung Matrix ( x, y, o)
 

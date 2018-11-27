@@ -4,9 +4,10 @@ clear all;
 clc;
 
 % Compare bins to single
-map  = LoadMap('../Data/Vorgabe_Rundgang.png');
+map  = LoadMap('../../Data/Vorgabe.png',100);
+
 % pose = [39.83, 10.47, -1.1+pi];
-pose = [39.3764, 11.3612, -1.1-pi/4];
+pose = [22.3764, 5.3612, -1.1-pi/4];
 
 figure();
 show(map);
@@ -15,7 +16,7 @@ scatter(pose(1), pose(2), 'Or')
 [u, v] = pol2cart(pose(3), 1);
 quiver(pose(1), pose(2), u, v);
 
-[thetas_all, rhos_all, x, y] = SimulateKinect(map, pose, 'anglesteps', 10);
+[thetas_all, rhos_all, x, y] = SimulateKinect(map, pose, 'anglesteps', 500);
 scatter(x, y, '.b');
 
 % Generate bins
