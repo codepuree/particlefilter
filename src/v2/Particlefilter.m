@@ -1,4 +1,4 @@
-function [particles] = Particlefilter(grid, particles, mesurement, varargin)
+function [new_Particles] = Particlefilter(grid, particles, mesurement, varargin)
 %PARTICLEFILTER returns the good particles
 %   Detailed explanation goes here
 
@@ -8,6 +8,7 @@ function [particles] = Particlefilter(grid, particles, mesurement, varargin)
 
 
 %% Rating 
+MeanDist = NaN(0);
 
 numWorkers = 4;
 
@@ -36,10 +37,16 @@ end
 MeanDist = MeanDist';
 
 %% Normalize Weights:
-sigma = 0.5;
+Sigma = 0.5;
 mue = 0;
-weights = 1/sqrt(2*pi*sigma^2)*exp(-1/2*(MeanDist-mue)^2/sigma^2);
+weights = 1/sqrt(2*pi*Sigma^2)*exp(-1/2*(MeanDist-mue).^2/Sigma^2);
+n_weights = weights(~isnan(weights))./sum(weights(~isnan(weights)));
+disp(sum(n_weights));
 
+%% Resampling
+Number_of_Part = floor(length(particles) * 0.95);
+Streu = [0.5,0.5,pi/8];
+new_Particles = Resample(Number_of_Part,n_weights,particles,Streu);
 
 
 end

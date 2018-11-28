@@ -11,7 +11,7 @@ if isempty(poolObj)
 end
 
 %% Define Parameters
-pose = [22.3764, 5.3612, -1.1+pi];
+pose = [22.3764, 5.3612, -1.1-pi/4];
 movement = [0, 0.5];
 
 %% Load map
@@ -39,13 +39,6 @@ while iteration < max_iteration
     particles = Particlefilter(map, particles,measurement);
     disp(['Iteration ' num2str(iteration) ': ' num2str(length(particles))]);
     figure()
-    show(map);
-    hold on;
-    axis equal
     scatter(particles(:,1),particles(:,2),'.b');
-    scatter(pose(1),pose(2),'xr');
-    [u, v] = pol2cart(pose(3), 4);
-    quiver(pose(1), pose(2), u, v);
-    
     iteration = iteration + 1;
 end
