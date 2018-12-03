@@ -15,7 +15,7 @@ pose = [20.473, 8.36, -1.1+pi];
 movement = [0, 0.5];
 
 %% Load map
-map = LoadMap('../../Data/Vorgabe_RundgangX50.png');
+map = LoadMap('../../Data/Vorgabe_Rundgang.png', 'resolution', 50);
 
 %% Init particles
 orient    = 0:2*pi/7:2*pi;
