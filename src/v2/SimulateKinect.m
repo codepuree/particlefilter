@@ -67,7 +67,8 @@ thetas(rhosIndices) = NaN;
 rhos(rhosIndices)   = NaN;
 
 thetas = thetas - theta;
-
+%% Update Versuch
+thetas = angles;
 intersectionPts(rhosIndices, 1) = NaN;
 intersectionPts(rhosIndices, 2) = NaN;
 

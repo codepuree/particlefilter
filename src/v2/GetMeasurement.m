@@ -1,4 +1,4 @@
-function [measurement] = GetMeasurement(simFlag, varargin)
+function [thetas, radius] = GetMeasurement(simFlag, varargin)
 %GETMEASUREMENT Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -63,6 +63,6 @@ else
     warning('No valid input');
 end
 
-measurement = [thetas, radius];
+% measurement = [thetas, radius];
 end
 

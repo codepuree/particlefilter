@@ -11,41 +11,45 @@ if isempty(poolObj)
 end
 
 %% Define Parameters
-pose = [22.3764, 5.3612, -1.1+pi];
+pose = [20.473, 8.36, -1.1+pi];
 movement = [0, 0.5];
 
 %% Load map
-map = LoadMap('../../Data/Vorgabe_Rundgang.png','resolution',100);
+map = LoadMap('../../Data/Vorgabe_RundgangX50.png');
 
 %% Init particles
 orient    = 0:2*pi/7:2*pi;
-particles = Initialization(map, orient);
+particles = Initialization(map, orient, 'gridx', 1, 'gridy', 1);
 
-show(map);
-hold on;
-scatter(particles(:,1),particles(:,2), '*r');
-hold off;
+Presentation(pose, particles, map);
+title(['Initialisation: ' 10 'particles: ' num2str(length(particles))]);
 
 %% Do iterations
 iteration     = 1;
 max_iteration = 35;
 while iteration < max_iteration
     % Get mesurement
-    measurement = GetMeasurement('sim','pose',pose,'map',map, 'bins', 20);
+    tic
+    
+%     [thetas, radius] = GetMeasurement('sim','pose',pose,'map',map, 'bins', 10);
+    [thetas, radius] = GetMeasurement('Rundgang', 'iteration', iteration);
+    
     if iteration > 1 && ~isempty(movement)
-        particles = Propagation(map, particles, movement);
-        pose      = Propagation(map, pose,      movement);
+%         particles = Propagation(map, particles, movement);
+%         particles = ValidateParticles(map, particles);
+        
+        pose      = Propagation(map, pose, movement);
     end
-    particles = Particlefilter(map, particles,measurement);
+        
+    particles = Particlefilter(map, particles,thetas,radius);
+    
+    particles = ValidateParticles(map, particles);
+    
     disp(['Iteration ' num2str(iteration) ': ' num2str(length(particles))]);
-    figure()
-    show(map);
-    hold on;
-    axis equal
-    scatter(particles(:,1),particles(:,2),'.b');
-    scatter(pose(1),pose(2),'xr');
-    [u, v] = pol2cart(pose(3), 4);
-    quiver(pose(1), pose(2), u, v);
+    
+    Presentation(pose, particles, map);
+    title(['Iteration ' num2str(iteration) ': ' 10 'particles: ' num2str(length(particles))]);
     
     iteration = iteration + 1;
+    toc
 end

@@ -1,4 +1,4 @@
-function [new_Particles] = Particlefilter(grid, particles, mesurement, varargin)
+function [new_Particles] = Particlefilter(grid, particles, thetas, radius, varargin)
 %PARTICLEFILTER returns the good particles
 %   Detailed explanation goes here
 
@@ -26,8 +26,8 @@ parfor i = 1 : numWorkers
         stop = size(particles,1);
     end
 
-    limes = 0.2;
-    out{i} = arrayfun(@(m) diffDist(grid, particles(m,:), mesurement, limes), start:stop);
+    limes = 0.1;
+    out{i} = arrayfun(@(m) Dist_L(grid, particles(m,:), thetas, radius, limes), start:stop);
 %             out2{i} = arrayfun(@(m) Dist_L(grid,Init(m,:), theta_S, rho_S,limes), start:stop);
 end
 
@@ -43,17 +43,19 @@ weights = 1/sqrt(2*pi*Sigma^2)*exp(-1/2*(MeanDist-mue).^2/Sigma^2);
 n_weights = weights(~isnan(weights))./sum(weights(~isnan(weights)));
 disp(sum(n_weights));
 
+SaveWeights(MeanDist, n_weights);
+
 %% Resampling
-Number_of_Part = floor(length(particles) * 0.95);
-Streu = [0.5,0.5,pi/8];
+Number_of_Part = max(500, floor(length(particles) * 0.95));
+Streu = [1.5, 1.5, pi/8];
 new_Particles = Resample(Number_of_Part,n_weights,particles,Streu);
 
 
 end
 
-function [dist] = diffDist(grid, pose, measurement, limes)
-    theta_S = measurement(1);
-    rho_S   = measurement(2);
+function [dist] = diffDist(grid, pose, thetas, radius, limes)
+    theta_S = thetas;
+    rho_S   = radius;
     [~, rhos,~,~] = SimulateKinect(grid, pose,'angles',theta_S);
     distV = (rho_S - rhos).^2;
     distV = abs(rho_S - rhos);
@@ -69,12 +71,12 @@ end
 
 
 
-function [dist] = Dist_L(grid, pose, measurement, limes)
-    theta_S = measurement(1);
-    rho_S   = measurement(2);
+function [dist] = Dist_L(grid, pose, thetas, radius, limes)
+    theta_S = thetas(1);
+    rho_S   = radius(2);
     [~, rhos,~,~] = SimulateKinect(grid, pose,'angles',theta_S);
     distance = abs(rho_S - rhos);
-    distance ( isnan(rho_S) & isnan(rhos) ) = 1;
+%     distance ( isnan(rho_S) & isnan(rhos) ) = 1;
     if (nnz(~isnan(distance))/length(distance)) > limes
         distanceV = distance(~isnan(distance));
         dist = (sum(distanceV) / length(distanceV));
