@@ -1,8 +1,26 @@
-function [bool] = Presentation(pose, particles, map)
+function [bool] = Presentation(pose, particles, map, varargin)
 %PRESENTATION Summary of this function goes here
 %   Detailed explanation goes here
+p = inputParser();
+
+defaultValThetas = zeros(0);
+validateThetas   = @(x) validateattributes(x, {'single', 'double'}, {});
+addOptional(p, 'thetas', defaultValThetas, validateThetas);
+
+defaultValRadius = zeros(0);
+validateRadius   = @(x) validateattributes(x, {'single', 'double'}, {});
+addOptional(p, 'radius', defaultValRadius, validateRadius);
+
+parse(p, varargin{:});
+
+thetas = p.Results.thetas;
+radius = p.Results.radius;
+
 bool = true;
 figure();
+if ~isempty(thetas)
+    subplot(1, 2, 1);
+end
 show(map);
 hold on 
 %% Classify the 
@@ -15,10 +33,16 @@ end
 legend()
 
 %% Plot pose with arrow
-% scatter(pose(1),pose(2),'xb');
-% [u,v] = pol2cart(pose(3), 5);
-% hold on
-% quiver(pose(1),pose(2), u, v)
+scatter(pose(1),pose(2),'xb');
+[u,v] = pol2cart(pose(3), 5);
+hold on
+quiver(pose(1),pose(2), u, v)
+hold off;
+
+if ~isempty(thetas)
+    subplot(1, 2, 2);
+    polarplot(thetas(~isnan(radius)), radius(~isnan(radius)),'*');
+end
 
 end
 

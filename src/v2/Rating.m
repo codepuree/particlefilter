@@ -1,4 +1,4 @@
-function [new_Particles] = Particlefilter(grid, particles, thetas, radius, varargin)
+function [MeanDist] = Rating(grid, particles, thetas, radius, varargin)
 %PARTICLEFILTER returns the good particles
 %   Detailed explanation goes here
 
@@ -28,29 +28,13 @@ parfor i = 1 : numWorkers
 
     limes = 0.1;
     out{i} = arrayfun(@(m) Dist_L(grid, particles(m,:), thetas, radius, limes), start:stop);
-%             out2{i} = arrayfun(@(m) Dist_L(grid,Init(m,:), theta_S, rho_S,limes), start:stop);
+%   out2{i} = arrayfun(@(m) Dist_L(grid,Init(m,:), theta_S, rho_S,limes), start:stop);
 end
 
 for i=1:length(out)
    MeanDist = horzcat(MeanDist,out{i}); 
 end
 MeanDist = MeanDist';
-
-%% Normalize Weights:
-Sigma = 0.5;
-mue = 0;
-weights = 1/sqrt(2*pi*Sigma^2)*exp(-1/2*(MeanDist-mue).^2/Sigma^2);
-n_weights = weights(~isnan(weights))./sum(weights(~isnan(weights)));
-disp(sum(n_weights));
-
-SaveWeights(MeanDist, n_weights);
-
-%% Resampling
-Number_of_Part = max(500, floor(length(particles) * 0.95));
-Streu = [1.5, 1.5, pi/8];
-new_Particles = Resample(Number_of_Part,n_weights,particles,Streu);
-
-
 end
 
 function [dist] = diffDist(grid, pose, thetas, radius, limes)
@@ -58,7 +42,7 @@ function [dist] = diffDist(grid, pose, thetas, radius, limes)
     rho_S   = radius;
     [~, rhos,~,~] = SimulateKinect(grid, pose,'angles',theta_S);
     distV = (rho_S - rhos).^2;
-    distV = abs(rho_S - rhos);
+%     distV = abs(rho_S - rhos);
 %     distV ( isnan(rho_S) & isnan(rhos) ) = 1;
     if (nnz(~isnan(distV))/length(distV)) > limes
         distVnn = distV(~isnan(distV));
@@ -69,11 +53,10 @@ function [dist] = diffDist(grid, pose, thetas, radius, limes)
 %     dist = nansum(1-abs(rho_S-rhos)./5) / length(rhos);
 end
 
-
-
 function [dist] = Dist_L(grid, pose, thetas, radius, limes)
-    theta_S = thetas(1);
-    rho_S   = radius(2);
+    %% mittlere Differenz
+    theta_S = thetas;
+    rho_S   = radius;
     [~, rhos,~,~] = SimulateKinect(grid, pose,'angles',theta_S);
     distance = abs(rho_S - rhos);
 %     distance ( isnan(rho_S) & isnan(rhos) ) = 1;
