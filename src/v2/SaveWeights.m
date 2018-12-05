@@ -22,7 +22,7 @@ m = sort(n_weights);
 plot(m);
 xlabel('Index');
 ylabel('Gewicht');
-ylim([0 0.01]);
+% ylim([0 0.01]);
 
 end
 

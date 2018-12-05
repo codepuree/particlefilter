@@ -19,14 +19,15 @@ movement = [0, 0.5];
     my = 0;
 % Resampling
     minNumParticles = 1000;
-    Streu = [1.5, 1.5, pi/8];
+    Streu = [0.5, 0.5, pi/16];
+
     factorParticleReduction = 0.95;
 
 %% Load map
-map = LoadMap('../../Data/Vorgabe_RundgangX50.png', 'resolution', 10);
+map = LoadMap('../../Data/Vorgabe_Rundgang.png', 'resolution', 20);
 
 %% Init particles
-orient    = 0:2*pi/7:2*pi;
+orient    = 0:2*pi/15:2*pi;
 particles = Initialization(map, orient, 'gridx', 1, 'gridy', 1);
 
 Presentation(pose, particles, map);
@@ -34,7 +35,7 @@ title(['Initialisation: ' 10 'particles: ' num2str(length(particles))]);
 
 %% Do iterations
 iteration     = 1;
-max_iteration = 35;
+max_iteration = 30;
 while iteration < max_iteration
     disp([10 'Iteration: ' num2str(iteration)]);
     tic
@@ -44,12 +45,12 @@ while iteration < max_iteration
         particles = ValidateParticles(map, particles);
         
         pose      = Propagation(map, pose, movement);
-        particles(1,:) = pose;
     end
+%     particles(1,:) = pose;
     
     %% Get mesurement
-  [thetas, radius] = GetMeasurement('sim','pose',pose,'map',map, 'bins', 50);
-%     [thetas, radius] = GetMeasurement('Rundgang', 'iteration', iteration);
+%   [thetas, radius] = GetMeasurement('sim','pose',pose,'map',map, 'bins', 50);
+    [thetas, radius] = GetMeasurement('Rundgang', 'iteration', iteration);
     
     %% Rating 
     MeanDist = Rating(map, particles,thetas,radius);
@@ -67,13 +68,13 @@ while iteration < max_iteration
         particles = ValidateParticles(map, particles);
 
     end
-    
+%     particles(1,:) = pose;
     %% Results    
     disp(['Number of particles: ' num2str(length(particles))]);
     
     Presentation(pose, particles, map, 'thetas', thetas, 'radius', radius);
     title(['Iteration ' num2str(iteration) ': ' 10 'particles: ' num2str(length(particles))]);
-    if (mod(iteration,7) == 0)
+    if (mod(iteration,20) == 0)
        disp(iteration); 
     end
     
