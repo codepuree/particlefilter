@@ -1,4 +1,4 @@
-function [New_Pose] = Resample(n,weights,Poses,Streu)
+function [New_Pose, oldPoseIdx] = Resample(n,weights,Poses,Streu)
 % Rand = [s,angle];
 w2 = (weights*(n) / 10000);
 [w2s, idx]=sort(w2, 'descend');
@@ -13,6 +13,7 @@ WEIGHT=ceil(gewicht);
     disp(['Summe der Gewichte: ',num2str(sum(WEIGHT))]);
 % end
 
+oldPoseIdx = false(n, 1);
 
 while num_of_Pose < n
 
@@ -25,6 +26,7 @@ while num_of_Pose < n
         particle = Poses(idx(index),:);
         num_of_Pose = num_of_Pose + 1;
         New_Pose(num_of_Pose,:) = particle;
+        oldPoseIdx(num_of_Pose) = true;
         
         for j = 1:number - 1
 

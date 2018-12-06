@@ -6,7 +6,7 @@ clc;
 % Setup paralell pool
 poolObj = gcp('nocreate');
 if isempty(poolObj)
-    numWorkers = 4;
+    numWorkers = 2;
     poolObj = parpool('local', numWorkers);
 end
 
@@ -64,7 +64,7 @@ while iteration < max_iteration
 
         %% Resampling & Validation
         Number_of_Part = max(minNumParticles, floor(length(particles) * factorParticleReduction));
-        particles = Resample(Number_of_Part,weights,particles,Streu);
+        [particles, oldParticleIdx] = Resample(Number_of_Part,weights,particles,Streu);
         particles = ValidateParticles(map, particles);
 
     end
@@ -72,7 +72,7 @@ while iteration < max_iteration
     %% Results    
     disp(['Number of particles: ' num2str(length(particles))]);
     
-    Presentation(pose, particles, map, 'thetas', thetas, 'radius', radius);
+    Presentation(pose, particles, map, 'thetas', thetas, 'radius', radius, 'oldparticleidx', oldParticleIdx);
     title(['Iteration ' num2str(iteration) ': ' 10 'particles: ' num2str(length(particles))]);
     if (mod(iteration,20) == 0)
        disp(iteration); 

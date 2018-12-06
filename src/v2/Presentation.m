@@ -11,10 +11,15 @@ defaultValRadius = zeros(0);
 validateRadius   = @(x) validateattributes(x, {'single', 'double'}, {});
 addOptional(p, 'radius', defaultValRadius, validateRadius);
 
+defaultValRadius = zeros(0);
+validateRadius   = @(x) validateattributes(x, {'logical'}, {});
+addOptional(p, 'oldparticleidx', defaultValRadius, validateRadius);
+
 parse(p, varargin{:});
 
 thetas = p.Results.thetas;
 radius = p.Results.radius;
+oldParticleIdx = p.Results.oldparticleidx;
 
 bool = true;
 figure();
@@ -38,6 +43,9 @@ scatter(pose(1),pose(2),'xb');
 [u,v] = pol2cart(pose(3), 5);
 hold on
 quiver(pose(1),pose(2), u, v)
+if ~isempty(oldParticleIdx)
+    scatter(particles(oldParticleIdx, 1), particles(oldParticleIdx, 2), 'Or');
+end
 hold off;
 
 if ~isempty(thetas)
