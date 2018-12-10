@@ -10,7 +10,7 @@ WEIGHT=ceil(gewicht);
 
 % if (n < 700)
     disp(['N: ',num2str(n)]);
-    disp(['Summe der Gewichte: ',num2str(sum(WEIGHT))]);
+    disp(['Summe der Gewichte: ',num2str(sum(WEIGHT)),'; Differenz: ' num2str(sum(w2)-sum(WEIGHT))]);
 % end
 
 oldPoseIdx = false(n, 1);
@@ -19,6 +19,7 @@ while num_of_Pose < n
 
     if (index > length(WEIGHT))
        index = 1;
+       WEIGHT(:) = 1;
     end
      number = WEIGHT(index);
     
