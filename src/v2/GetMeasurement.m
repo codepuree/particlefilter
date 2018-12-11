@@ -61,6 +61,8 @@ elseif exist([rootFolder '/' simFlag '/' simFlag '_' num2str(iteration, '%02.f')
     thetas = thetas - pi / 2;
 else
     warning('No valid input');
+    thetas = [];
+    radius = [];
 end
 
 % measurement = [thetas, radius];

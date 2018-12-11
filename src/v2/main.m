@@ -6,7 +6,7 @@ clc;
 % Setup paralell pool
 poolObj = gcp('nocreate');
 if isempty(poolObj)
-    numWorkers = 2;
+    numWorkers = 4;
     poolObj = parpool('local', numWorkers);
 end
 
@@ -18,8 +18,8 @@ movement = [0, 0.5];
     sigma = 0.5;
     my = 0;
 % Resampling
-    minNumParticles = 1000;
-    Streu = [0.5, 0.5, pi/16];
+    minNumParticles = 1500;
+    Streu = [0.5, 0.5, pi/64];
 
     factorParticleReduction = 0.95;
 
@@ -27,7 +27,7 @@ movement = [0, 0.5];
 map = LoadMap('../../Data/Vorgabe_Rundgang.png', 'resolution', 20);
 
 %% Init particles
-orient    = 0:2*pi/15:2*pi;
+orient    = 0:2*pi/31:2*pi;
 particles = Initialization(map, orient, 'gridx', 1, 'gridy', 1);
 
 Presentation(pose, particles, map);
@@ -35,7 +35,7 @@ title(['Initialisation: ' 10 'particles: ' num2str(length(particles))]);
 
 %% Do iterations
 iteration     = 1;
-max_iteration = 30;
+max_iteration = 45;
 while iteration < max_iteration
     disp([10 'Iteration: ' num2str(iteration)]);
     tic
@@ -44,13 +44,18 @@ while iteration < max_iteration
         particles = Propagation(map, particles, movement);
         particles = ValidateParticles(map, particles);
         
-        pose      = Propagation(map, pose, movement);
+%         pose      = Propagation(map, pose, movement);
     end
-%     particles(1,:) = pose;
     
     %% Get mesurement
 %   [thetas, radius] = GetMeasurement('sim','pose',pose,'map',map, 'bins', 50);
     [thetas, radius] = GetMeasurement('Rundgang', 'iteration', iteration);
+    
+    if (isempty(thetas) && isempty(radius))
+        disp('Done');
+        verteilung(particles);
+    end
+    
     
     %% Rating 
     MeanDist = Rating(map, particles,thetas,radius);
@@ -64,17 +69,18 @@ while iteration < max_iteration
 
         %% Resampling & Validation
         Number_of_Part = max(minNumParticles, floor(length(particles) * factorParticleReduction));
-        [particles, oldParticleIdx] = Resample(Number_of_Part,weights,particles,Streu);
+        particles = Resample(Number_of_Part,weights,particles,Streu);
         particles = ValidateParticles(map, particles);
 
     end
 %     particles(1,:) = pose;
+
     %% Results    
     disp(['Number of particles: ' num2str(length(particles))]);
     
-    Presentation(pose, particles, map, 'thetas', thetas, 'radius', radius, 'oldparticleidx', oldParticleIdx);
+    Presentation(pose, particles, map, 'thetas', thetas, 'radius', radius);
     title(['Iteration ' num2str(iteration) ': ' 10 'particles: ' num2str(length(particles))]);
-    if (mod(iteration,20) == 0)
+    if (mod(iteration,44) == 0)
        disp(iteration); 
     end
     
