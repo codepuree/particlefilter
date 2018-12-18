@@ -18,7 +18,7 @@ hold on
 % scatter(Test_pose(1),Test_pose(2),'*b');
 
 figure()
-hist3([particles(:,1),particles(:,2)],'Nbins',[30,30],'CDataMode','auto','FaceColor','interp');
+hist3([particles(:,1),particles(:,2)],'Nbins',[100,100],'CDataMode','auto','FaceColor','interp');
 xlabel('X-Achse');
 ylabel('Y-Achse');
 end

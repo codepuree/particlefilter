@@ -48,7 +48,7 @@ while iteration < max_iteration
     end
     
     %% Get mesurement
-%   [thetas, radius] = GetMeasurement('sim','pose',pose,'map',map, 'bins', 50);
+%   [thetas, radius] = GetMeasurement('sim','pose',pose,'map',map, 'bins', 50);    
     [thetas, radius] = GetMeasurement('Rundgang', 'iteration', iteration);
     
     if (isempty(thetas) && isempty(radius))
