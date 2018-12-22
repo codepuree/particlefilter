@@ -1,21 +1,49 @@
-%% Setup Matlab environment
-close all;
-clear all;
-clc;
+function [particles] = Particlefilter(varargin)
+%% Parameter
+% worker
+% simulation : pose [x,y,o] + mov [o, s]
+% weights: sigma & my
+% Resampling: min Number Part 
+%  noise [x,y,o]
+%   factorPatricleReduction 
+%LoadMap:   FilePath_map Resolution
+%steps_orientation
+%grid_x grid_y
+%max_Iteration
+% Get Measurement: SimFlag, Numb Bins, angleRange , min_y, max_y
 
-% Setup paralell pool
-poolObj = gcp('nocreate');
-if isempty(poolObj)
-    numWorkers = 4;
-    poolObj = parpool('local', numWorkers);
-end
+%% Input Parser
+p = inputParser;
 
-%% Define Parameters
+% NumWorker name-value pair
+defaultValnumWorkers = 4;
+validatenumWorkers   = @(x) validateattributes(x, {'double','single'}, {'nonempty', 'positive'});
+addParameter(p, 'numWorkers', defaultValnumWorkers, validatenumWorkers);
+
+% Bins name-value pair
+defaultValBins = 10;
+validateBins   = @(x) validateattributes(x, {'double','single'}, {'nonempty', 'positive'});
+addParameter(p, 'bins', defaultValBins, validateBins);
+
+% min_y name-value pair
+defaultValMin_y = -0.3;
+validateMin_y   = @(x) validateattributes(x, {'double', 'single'}, {'nonempty'});
+addParameter(p, 'min_y', defaultValMin_y, validateMin_y);
+
+% max_y name-value pair
+defaultValMax_y = 0.3;
+validateMax_y   = @(x) validateattributes(x, {'double', 'single'}, {'nonempty'});
+addParameter(p, 'max_y', defaultValMax_y, validateMax_y);
+
+parse(p, varargin{:});
+
+numWorkers = p.Results.numWorkers;
+bins       = p.Results.bins;
+min_y      = p.Results.min_y;
+max_y      = p.Results.max_y;
+
 pose = [22.473, 5.8, 1.9429];
 movement = [0, 0.5];
-%% GetMeasurement CrossProfile
-min_y = -0.3;   
-max_y = 0.3;
 
 % Normalize Weights
     sigma = 0.5;
@@ -25,20 +53,35 @@ max_y = 0.3;
     Streu = [0.5, 0.5, pi/64];
 
     factorParticleReduction = 1;
+    
+map_resolution = 20;
+map_path = '../Data/Vorgabe_Rundgang.png';
+max_iteration = 45;
+orient    = 0:2*pi/31:2*pi;
+gridX = 1;
+gridY = 1;
+SimFlag = 'Rundgang';
+angleRange = 0.96;
+
+%% Particle Filter
+
+% Setup paralell pool
+poolObj = gcp('nocreate');
+if isempty(poolObj)
+    poolObj = parpool('local', numWorkers);
+end
 
 %% Load map
-map = LoadMap('../../Data/Vorgabe_Rundgang.png', 'resolution', 20);
+map = LoadMap(map_path, 'resolution', map_resolution);
 
 %% Init particles
-orient    = 0:2*pi/31:2*pi;
-particles = Initialization(map, orient, 'gridx', 1, 'gridy', 1);
+particles = Initialization(map, orient, 'gridx', gridX, 'gridy', gridY);
 
 Presentation(pose, particles, map);
 title(['Initialisation: ' 10 'particles: ' num2str(length(particles))]);
 
 %% Do iterations
 iteration     = 1;
-max_iteration = 45;
 while iteration < max_iteration
     disp([10 'Iteration: ' num2str(iteration)]);
     tic
@@ -52,7 +95,7 @@ while iteration < max_iteration
     
     %% Get mesurement
 %   [thetas, radius] = GetMeasurement('sim','pose',pose,'map',map, 'bins', 50, 'min_y', min_y,'max_y',max_y);    
-    [thetas, radius] = GetMeasurement('Rundgang', 'iteration', iteration);
+    [thetas, radius] = GetMeasurement(SimFlag, 'iteration', iteration, 'bins', bins, 'anglerange', angleRange, 'min_y', min_y, 'max_y', max_y);
     
     if (isempty(thetas) && isempty(radius))
         disp('Done');
@@ -91,3 +134,6 @@ while iteration < max_iteration
     iteration = iteration + 1;
     toc
 end
+
+end
+

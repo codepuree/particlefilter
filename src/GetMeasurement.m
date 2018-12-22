@@ -5,7 +5,7 @@ function [thetas, radius] = GetMeasurement(simFlag, varargin)
 p = inputParser;
 
 % Min range name-value pair
-defaultValRootFolder = '../../Data';
+defaultValRootFolder = '../Data';
 validateRootFolder   = @(x) validateattributes(x, {'char'}, {'nonempty'});
 addParameter(p, 'rootfolder', defaultValRootFolder, validateRootFolder);
 
@@ -34,6 +34,16 @@ defaultValBins = 10;
 validateBins   = @(x) validateattributes(x, {'double','single'}, {'nonempty', 'positive'});
 addParameter(p, 'bins', defaultValBins, validateBins);
 
+% min_y name-value pair
+defaultValMin_y = -0.3;
+validateMin_y   = @(x) validateattributes(x, {'double', 'single'}, {'nonempty'});
+addParameter(p, 'min_y', defaultValMin_y, validateMin_y);
+
+% max_y name-value pair
+defaultValMax_y = 0.3;
+validateMax_y   = @(x) validateattributes(x, {'double', 'single'}, {'nonempty'});
+addParameter(p, 'max_y', defaultValMax_y, validateMax_y);
+
 parse(p, varargin{:});
 
 rootFolder = p.Results.rootfolder;
@@ -42,6 +52,8 @@ map        = p.Results.map;
 pose       = p.Results.pose;
 angleRange = p.Results.anglerange;
 bins       = p.Results.bins;
+min_y      = p.Results.min_y;
+max_y      = p.Results.max_y;
 
 if strcmpi(simFlag,'sim')
     if ~isempty(map) && ~isempty(pose)
@@ -57,7 +69,7 @@ elseif exist([rootFolder '/' simFlag '/' simFlag '_' num2str(iteration, '%02.f')
     disp(['Loading ''' filePath '''...']);
     pc = pcread(filePath);
     semi_range = angleRange / 2;
-    [thetas,radius] = Pcprepare(pc, -0.3,0.3,20, pi/2-semi_range,pi/2+semi_range);
+    [thetas,radius] = Pcprepare(pc, min_y,max_y,bins, pi/2-semi_range,pi/2+semi_range);
     thetas = thetas - pi / 2;
 else
     warning('No valid input');
