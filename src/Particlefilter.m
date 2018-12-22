@@ -1,16 +1,4 @@
 function [particles] = Particlefilter(varargin)
-%% Parameter
-% worker
-% simulation : pose [x,y,o] + mov [o, s]
-% weights: sigma & my
-% Resampling: min Number Part 
-%  noise [x,y,o]
-%   factorPatricleReduction 
-%LoadMap:   FilePath_map Resolution
-%steps_orientation
-%grid_x grid_y
-%max_Iteration
-% Get Measurement: SimFlag, Numb Bins, angleRange , min_y, max_y
 
 %% Input Parser
 p = inputParser;
@@ -20,48 +8,118 @@ defaultValnumWorkers = 4;
 validatenumWorkers   = @(x) validateattributes(x, {'double','single'}, {'nonempty', 'positive'});
 addParameter(p, 'numWorkers', defaultValnumWorkers, validatenumWorkers);
 
+% Pose name-value pair
+defaultValPose = [22.473, 5.8, 1.9429]; % maybe empty, to hide if not used
+validatePose   = @(x) validateattributes(x, {'double'}, {'nonempty'});
+addParameter(p, 'pose', defaultValPose, validatePose);
+
+% Movement name-value pair
+defaultValMovement = [0, 0.5];
+validateMovement   = @(x) validateattributes(x, {'double','single'}, {'nonempty'});
+addParameter(p, 'movement', defaultValMovement, validateMovement);
+
+% Sigma name-value pair
+defaultValSigma = 0.5;
+validateSigma   = @(x) validateattributes(x, {'double','single'}, {'nonempty', 'positive'});
+addParameter(p, 'sigma', defaultValSigma, validateSigma);
+
+% Sigma name-value pair
+defaultValMy = 0;
+validateMy   = @(x) validateattributes(x, {'double','single'}, {'nonempty', 'positive'});
+addParameter(p, 'my', defaultValMy, validateMy);
+
+% MinNumParticles name-value pair
+defaultValMinNumParticles = 1500;
+validateMinNumParticles   = @(x) validateattributes(x, {'double','single'}, {'nonempty', 'positive'});
+addParameter(p, 'minNumParticles', defaultValMinNumParticles, validateMinNumParticles);
+
+% Dispersion name-value pair
+defaultValDispersion = [0.5, 0.5, pi/64];
+validateDispersion   = @(x) validateattributes(x, {'double','single'}, {'nonempty', 'positive'});
+addParameter(p, 'dispersion', defaultValDispersion, validateDispersion);
+
+% FactorParticleReduction name-value pair
+defaultValFactorParticleReduction = 0.95;
+validateFactorParticleReduction   = @(x) validateattributes(x, {'double','single'}, {'nonempty', 'positive'});
+addParameter(p, 'factorParticleReduction', defaultValFactorParticleReduction, validateFactorParticleReduction);
+
 % Bins name-value pair
 defaultValBins = 10;
 validateBins   = @(x) validateattributes(x, {'double','single'}, {'nonempty', 'positive'});
 addParameter(p, 'bins', defaultValBins, validateBins);
 
-% min_y name-value pair
+% MinY name-value pair
 defaultValMin_y = -0.3;
 validateMin_y   = @(x) validateattributes(x, {'double', 'single'}, {'nonempty'});
-addParameter(p, 'min_y', defaultValMin_y, validateMin_y);
+addParameter(p, 'minY', defaultValMin_y, validateMin_y);
 
-% max_y name-value pair
+% MaxY name-value pair
 defaultValMax_y = 0.3;
 validateMax_y   = @(x) validateattributes(x, {'double', 'single'}, {'nonempty'});
-addParameter(p, 'max_y', defaultValMax_y, validateMax_y);
+addParameter(p, 'maxY', defaultValMax_y, validateMax_y);
+
+% MapResolution name-value pair
+defaultValMapResolution = 20;
+validateMapResolution   = @(x) validateattributes(x, {'double', 'single'}, {'nonempty'});
+addParameter(p, 'mapResolution', defaultValMapResolution, validateMapResolution);
+
+% MapPath name-value pair
+defaultValMapPath = '../Data/Vorgabe.png';
+validateMapPath   = @(x) validateattributes(x, {'char'}, {'nonempty'});
+addParameter(p, 'mapPath', defaultValMapPath, validateMapPath);
+
+% GridX name-value pair
+defaultValGridX = 1;
+validateGridX   = @(x) validateattributes(x, {'double', 'single'}, {'nonempty'});
+addParameter(p, 'gridX', defaultValGridX, validateGridX);
+
+% GridY name-value pair
+defaultValGridY = 1;
+validateGridY   = @(x) validateattributes(x, {'double', 'single'}, {'nonempty'});
+addParameter(p, 'gridY', defaultValGridY, validateGridY);
+
+% MaxIteration name-value pair
+defaultValMaxIteration = 45;
+validateMaxIteration   = @(x) validateattributes(x, {'double', 'single'}, {'nonempty'});
+addParameter(p, 'maxIteration', defaultValMaxIteration, validateMaxIteration);
+
+% AngleRange name-value pair
+defaultValAngleRange = 0.96;
+validateAngleRange   = @(x) validateattributes(x, {'double', 'single'}, {'nonempty'});
+addParameter(p, 'angleRange', defaultValAngleRange, validateAngleRange);
+
+% SimFlag name-value pair
+defaultValSimFlag = 'sim';
+validateSimFlag   = @(x) validateattributes(x, {'char'}, {'nonempty'});
+addParameter(p, 'simFlag', defaultValSimFlag, validateSimFlag);
+
+% StepsOrientation name-value pair
+defaultValStepsOrientation = 31;
+validateStepsOrientation   = @(x) validateattributes(x, {'double', 'single'}, {'nonempty'});
+addParameter(p, 'stepsOrientation', defaultValStepsOrientation, validateStepsOrientation);
 
 parse(p, varargin{:});
 
-numWorkers = p.Results.numWorkers;
-bins       = p.Results.bins;
-min_y      = p.Results.min_y;
-max_y      = p.Results.max_y;
-
-pose = [22.473, 5.8, 1.9429];
-movement = [0, 0.5];
-
-% Normalize Weights
-    sigma = 0.5;
-    my = 0;
-% Resampling
-    minNumParticles = 1500;
-    Streu = [0.5, 0.5, pi/64];
-
-    factorParticleReduction = 1;
-    
-map_resolution = 20;
-map_path = '../Data/Vorgabe_Rundgang.png';
-max_iteration = 45;
-orient    = 0:2*pi/31:2*pi;
-gridX = 1;
-gridY = 1;
-SimFlag = 'Rundgang';
-angleRange = 0.96;
+% Asign parameters
+numWorkers              = p.Results.numWorkers;
+pose                    = p.Results.pose;
+movement                = p.Results.movement;
+sigma                   = p.Results.sigma;
+my                      = p.Results.my;
+minNumParticles         = p.Results.minNumParticles;
+bins                    = p.Results.bins;
+min_y                   = p.Results.minY;
+max_y                   = p.Results.maxY;
+Streu                   = p.Results.dispersion;
+factorParticleReduction = p.Results.factorParticleReduction;
+map_resolution          = p.Results.mapResolution;
+map_path                = p.Results.mapPath;
+gridX                   = p.Results.gridX;
+gridY                   = p.Results.gridY;
+max_iteration           = p.Results.maxIteration;
+angleRange              = p.Results.angleRange;
+SimFlag                 = p.Results.simFlag;
+stepsOrientation        = p.Results.stepsOrientation;
 
 %% Particle Filter
 
@@ -75,6 +133,7 @@ end
 map = LoadMap(map_path, 'resolution', map_resolution);
 
 %% Init particles
+orient    = 0:2*pi/stepsOrientation:2*pi;
 particles = Initialization(map, orient, 'gridx', gridX, 'gridy', gridY);
 
 Presentation(pose, particles, map);
@@ -90,12 +149,14 @@ while iteration < max_iteration
         particles = Propagation(map, particles, movement);
         particles = ValidateParticles(map, particles);
         
-%         pose      = Propagation(map, pose, movement);
+        if ~isempty(pose)
+            pose = Propagation(map, pose, movement);
+        end
     end
     
     %% Get mesurement
 %   [thetas, radius] = GetMeasurement('sim','pose',pose,'map',map, 'bins', 50, 'min_y', min_y,'max_y',max_y);    
-    [thetas, radius] = GetMeasurement(SimFlag, 'iteration', iteration, 'bins', bins, 'anglerange', angleRange, 'min_y', min_y, 'max_y', max_y);
+    [thetas, radius] = GetMeasurement(SimFlag, 'iteration', iteration, 'pose', pose, 'map', map, 'bins', bins, 'anglerange', angleRange, 'min_y', min_y, 'max_y', max_y);
     
     if (isempty(thetas) && isempty(radius))
         disp('Done');

@@ -59,7 +59,7 @@ if strcmpi(simFlag,'sim')
     if ~isempty(map) && ~isempty(pose)
         [thetas, radius, ~, ~] = SimulateKinect(map, pose, 'anglerange', angleRange, 'anglesteps', bins);
     else
-        error('There occupancy grid is empty!');
+        error('The occupancy grid or the pose is empty!');
     end
 elseif strcmpi(simFlag,'Take')
     %% last task; real time 
