@@ -24,12 +24,13 @@ while num_of_Pose < n
      number = WEIGHT(index);
     
     if number ~= 0
-        particle = Poses(idx(index),:);
-        num_of_Pose = num_of_Pose + 1;
-        New_Pose(num_of_Pose,:) = particle;
-        oldPoseIdx(num_of_Pose) = true;
+%         particle = Poses(idx(index),:);
+%         num_of_Pose = num_of_Pose + 1;
+%         New_Pose(num_of_Pose,:) = particle;
+%         oldPoseIdx(num_of_Pose) = true;
         
-        for j = 1:number - 1
+%         for j = 1:number - 1
+        for j = 1:number
 
             ang = randn(1)*Streu(3)-Streu(3)/2;
             x = randn() / 5 * Streu(1);

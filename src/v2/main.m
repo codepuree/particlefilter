@@ -21,7 +21,7 @@ movement = [0, 0.5];
     minNumParticles = 1500;
     Streu = [0.5, 0.5, pi/64];
 
-    factorParticleReduction = 0.95;
+    factorParticleReduction = 1;
 
 %% Load map
 map = LoadMap('../../Data/Vorgabe_Rundgang.png', 'resolution', 20);
@@ -69,7 +69,7 @@ while iteration < max_iteration
 
         %% Resampling & Validation
         Number_of_Part = max(minNumParticles, floor(length(particles) * factorParticleReduction));
-        particles = Resample(Number_of_Part,weights,particles,Streu);
+        [particles, oldParticleIdx] = Resample(Number_of_Part,weights,particles,Streu);
         particles = ValidateParticles(map, particles);
 
     end
@@ -78,7 +78,7 @@ while iteration < max_iteration
     %% Results    
     disp(['Number of particles: ' num2str(length(particles))]);
     
-    Presentation(pose, particles, map, 'thetas', thetas, 'radius', radius);
+    Presentation(pose, particles, map, 'thetas', thetas, 'radius', radius, 'oldparticleidx',oldParticleIdx);
     title(['Iteration ' num2str(iteration) ': ' 10 'particles: ' num2str(length(particles))]);
     if (mod(iteration,44) == 0)
        disp(iteration); 
