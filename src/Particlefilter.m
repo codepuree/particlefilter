@@ -108,17 +108,17 @@ sigma                   = p.Results.sigma;
 my                      = p.Results.my;
 minNumParticles         = p.Results.minNumParticles;
 bins                    = p.Results.bins;
-min_y                   = p.Results.minY;
-max_y                   = p.Results.maxY;
-Streu                   = p.Results.dispersion;
+minY                    = p.Results.minY;
+maxY                    = p.Results.maxY;
+dispersion              = p.Results.dispersion;
 factorParticleReduction = p.Results.factorParticleReduction;
-map_resolution          = p.Results.mapResolution;
-map_path                = p.Results.mapPath;
+mapResolution           = p.Results.mapResolution;
+mapPath                 = p.Results.mapPath;
 gridX                   = p.Results.gridX;
 gridY                   = p.Results.gridY;
-max_iteration           = p.Results.maxIteration;
+maxIteration            = p.Results.maxIteration;
 angleRange              = p.Results.angleRange;
-SimFlag                 = p.Results.simFlag;
+simFlag                 = p.Results.simFlag;
 stepsOrientation        = p.Results.stepsOrientation;
 
 %% Particle Filter
@@ -130,7 +130,7 @@ if isempty(poolObj)
 end
 
 %% Load map
-map = LoadMap(map_path, 'resolution', map_resolution);
+map = LoadMap(mapPath, 'resolution', mapResolution);
 
 %% Init particles
 orient    = 0:2*pi/stepsOrientation:2*pi;
@@ -141,7 +141,7 @@ title(['Initialisation: ' 10 'particles: ' num2str(length(particles))]);
 
 %% Do iterations
 iteration     = 1;
-while iteration < max_iteration
+while iteration < maxIteration
     disp([10 'Iteration: ' num2str(iteration)]);
     tic
     %% Propagation
@@ -156,7 +156,7 @@ while iteration < max_iteration
     
     %% Get mesurement
 %   [thetas, radius] = GetMeasurement('sim','pose',pose,'map',map, 'bins', 50, 'min_y', min_y,'max_y',max_y);    
-    [thetas, radius] = GetMeasurement(SimFlag, 'iteration', iteration, 'pose', pose, 'map', map, 'bins', bins, 'anglerange', angleRange, 'min_y', min_y, 'max_y', max_y);
+    [thetas, radius] = GetMeasurement(simFlag, 'iteration', iteration, 'pose', pose, 'map', map, 'bins', bins, 'anglerange', angleRange, 'min_y', minY, 'max_y', maxY);
     
     if (isempty(thetas) && isempty(radius))
         disp('Done');
@@ -176,7 +176,7 @@ while iteration < max_iteration
 
         %% Resampling & Validation
         Number_of_Part = max(minNumParticles, floor(length(particles) * factorParticleReduction));
-        [particles, oldParticleIdx] = Resample(Number_of_Part,weights,particles,Streu);
+        [particles, oldParticleIdx] = Resample(Number_of_Part,weights,particles,dispersion);
         particles = ValidateParticles(map, particles);
 
     end

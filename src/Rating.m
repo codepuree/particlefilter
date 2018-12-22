@@ -10,7 +10,8 @@ function [MeanDist] = Rating(grid, particles, thetas, radius, varargin)
 %% Rating 
 MeanDist = NaN(0);
 
-numWorkers = 4;
+parPool = gcp('nocreate');
+numWorkers = parPool.NumWorkers;
 
 out = cell(numWorkers, 1);
 parfor i = 1 : numWorkers
