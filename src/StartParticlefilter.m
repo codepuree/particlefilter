@@ -1,4 +1,4 @@
-function [particles] = Particlefilter(varargin)
+function [particles] = StartParticlefilter(varargin)
 
 %% Input Parser
 p = inputParser;
@@ -25,7 +25,7 @@ addParameter(p, 'sigma', defaultValSigma, validateSigma);
 
 % Sigma name-value pair
 defaultValMy = 0;
-validateMy   = @(x) validateattributes(x, {'double','single'}, {'nonempty', 'positive'});
+validateMy   = @(x) validateattributes(x, {'double','single'}, {'nonempty'});
 addParameter(p, 'my', defaultValMy, validateMy);
 
 % MinNumParticles name-value pair
@@ -35,7 +35,7 @@ addParameter(p, 'minNumParticles', defaultValMinNumParticles, validateMinNumPart
 
 % Dispersion name-value pair
 defaultValDispersion = [0.5, 0.5, pi/64];
-validateDispersion   = @(x) validateattributes(x, {'double','single'}, {'nonempty', 'positive'});
+validateDispersion   = @(x) validateattributes(x, {'double','single'}, {'nonempty'});
 addParameter(p, 'dispersion', defaultValDispersion, validateDispersion);
 
 % FactorParticleReduction name-value pair
@@ -185,7 +185,7 @@ while iteration < maxIteration
     %% Results    
     disp(['Number of particles: ' num2str(length(particles))]);
     
-    Presentation(pose, particles, map, 'thetas', thetas, 'radius', radius, 'oldparticleidx',oldParticleIdx);
+    Presentation(pose, particles, map, 'thetas', thetas, 'radius', radius); % , 'oldparticleidx',oldParticleIdx);
     title(['Iteration ' num2str(iteration) ': ' 10 'particles: ' num2str(length(particles))]);
     if (mod(iteration,44) == 0)
        disp(iteration); 
