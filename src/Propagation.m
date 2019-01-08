@@ -1,4 +1,4 @@
-function [particles] = Propagation(map, particles, movement)
+function [particles] = Propagation(particles, movement)
 %PROPAGATION Propagates the given particles.
 %   Detailed explanation goes here
 

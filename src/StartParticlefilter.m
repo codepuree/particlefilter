@@ -1,4 +1,4 @@
-function [particles] = StartParticlefilter(varargin)
+function [particles] = StartParticlefilter(testCallback, varargin)
 
 %% Input Parser
 p = inputParser;
@@ -93,6 +93,11 @@ defaultValSimFlag = 'sim';
 validateSimFlag   = @(x) validateattributes(x, {'char'}, {'nonempty'});
 addParameter(p, 'simFlag', defaultValSimFlag, validateSimFlag);
 
+% rootfolder name-value pair
+defaultValrootfolder = '../Data';
+validaterootfolder   = @(x) validateattributes(x, {'char'}, {});
+addParameter(p, 'dataRootFolder', defaultValrootfolder, validaterootfolder);
+
 % StepsOrientation name-value pair
 defaultValStepsOrientation = 31;
 validateStepsOrientation   = @(x) validateattributes(x, {'double', 'single'}, {'nonempty'});
@@ -120,6 +125,7 @@ maxIteration            = p.Results.maxIteration;
 angleRange              = p.Results.angleRange;
 simFlag                 = p.Results.simFlag;
 stepsOrientation        = p.Results.stepsOrientation;
+rootfolder              = p.Results.dataRootFolder;
 
 %% Particle Filter
 
@@ -144,14 +150,14 @@ iteration     = 1;
 while iteration < maxIteration
     disp([10 'Iteration: ' num2str(iteration)]);
     tic
-    
+    testCallback(iteration);
     %% Propagation
     if iteration > 1 && ~isempty(movement)
-        particles = Propagation(map, particles, movement);
+        particles = Propagation(particles, movement);
         particles = ValidateParticles(map, particles);
         
         if ~isempty(pose)
-            pose = Propagation(map, pose, movement);
+            pose = Propagation(pose, movement);
         end
     end
     
@@ -163,7 +169,8 @@ while iteration < maxIteration
         'bins',       bins, ...
         'anglerange', angleRange, ...
         'min_y',      minY, ...
-        'max_y',      maxY ...
+        'max_y',      maxY, ...
+        'rootfolder', rootfolder ...
     );    
 
     particles = Particlefilter(map, particles, thetas, radius, pose, movement, ...

@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="3462380173" file="D:\Matlab_Nav_App\18.11.19\Update\particlefilter\src\v2\appdesigner\app2_1.prj" location="D:\Matlab_Nav_App\18.11.19\Update\particlefilter\src\v2\appdesigner" name="app2_1" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="3462380173" file="D:\Matlab_Nav_App\2019\src\appdesigner\app2_1.prj" location="D:\Matlab_Nav_App\2019\src\appdesigner" name="app2_1" target="target.mlapps" target-name="Package App">
     <param.appname>app2_1</param.appname>
     <param.authnamewatermark />
     <param.email />
@@ -8,13 +8,13 @@
     <param.icons />
     <param.summary />
     <param.description />
-    <param.screenshot>C:\Users\Sysadmin\AppData\Local\Temp\tpd1654c33_2211_48df_93db_9d0f8683361e.png</param.screenshot>
+    <param.screenshot />
     <param.version>1.0</param.version>
     <param.products.name />
     <param.products.id />
     <param.products.version />
     <param.platforms />
-    <param.output>D:\Matlab_Nav_App\18.11.19\Update\particlefilter\src\v2\appdesigner</param.output>
+    <param.output>D:\Matlab_Nav_App\2019\src\appdesigner</param.output>
     <param.guid>781bcebe-5d28-46da-9a8a-aaca7c7a207c</param.guid>
     <unset>
       <param.authnamewatermark />
@@ -24,6 +24,7 @@
       <param.icons />
       <param.summary />
       <param.description />
+      <param.screenshot />
       <param.version />
       <param.products.name />
       <param.products.id />
@@ -38,7 +39,7 @@
     <fileset.resources />
     <fileset.package />
     <build-deliverables>
-      <file location="D:\Matlab_Nav_App\18.11.19\Update\particlefilter\src\v2" name="appdesigner" optional="false">D:\Matlab_Nav_App\18.11.19\Update\particlefilter\src\v2\appdesigner</file>
+      <file location="D:\Matlab_Nav_App\2019\src" name="appdesigner" optional="false">D:\Matlab_Nav_App\2019\src\appdesigner</file>
     </build-deliverables>
     <workflow />
     <matlab>

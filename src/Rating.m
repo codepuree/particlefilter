@@ -28,7 +28,7 @@ parfor i = 1 : numWorkers
     end
 
     limes = 0.1;
-    out{i} = arrayfun(@(m) Dist_L(grid, particles(m,:), thetas, radius, limes), start:stop);
+    out{i} = arrayfun(@(m) diffDist(grid, particles(m,:), thetas, radius, limes), start:stop);
 %   out2{i} = arrayfun(@(m) Dist_L(grid,Init(m,:), theta_S, rho_S,limes), start:stop);
 end
 

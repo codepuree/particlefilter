@@ -69,15 +69,15 @@ minY                    = p.Results.minY;
 maxY                    = p.Results.maxY;
 angleRange              = p.Results.angleRange;
 
-%% Propagation
-if iteration > 1 && ~isempty(movement)
-    particles = Propagation(map, particles, movement);
-    particles = ValidateParticles(map, particles);
-
-    if ~isempty(pose)
-        pose = Propagation(map, pose, movement);
-    end
-end
+% %% Propagation
+% if iteration > 1 && ~isempty(movement)
+%     particles = Propagation(particles, movement);
+%     particles = ValidateParticles(map, particles);
+% 
+%     if ~isempty(pose)
+%         pose = Propagation(pose, movement);
+%     end
+% end
 
 if (isempty(thetas) && isempty(radius))
     disp('Done');
