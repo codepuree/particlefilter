@@ -3,6 +3,16 @@ function [particles] = StartParticlefilter(testCallback, varargin)
 %% Input Parser
 p = inputParser;
 
+% AxesStats name-value pair
+defaultValAxesStats = struct();
+validateAxesStats   = @(x) validateattributes(x, {'struct'}, {'nonempty'});
+addParameter(p, 'AxesStats', defaultValAxesStats, validateAxesStats);
+
+% AxesParticlet name-value pair
+defaultValAxesParticle = struct();
+validateAxesParticle   = @(x) validateattributes(x, {'struct'}, {'nonempty'});
+addParameter(p, 'AxesParticle', defaultValAxesParticle, validateAxesParticle);
+
 % NumWorker name-value pair
 defaultValnumWorkers = 4;
 validatenumWorkers   = @(x) validateattributes(x, {'double','single'}, {'nonempty', 'positive'});
@@ -106,6 +116,8 @@ addParameter(p, 'stepsOrientation', defaultValStepsOrientation, validateStepsOri
 parse(p, varargin{:});
 
 % Asign parameters
+AxesStats               = p.Results.AxesStats;
+AxesParticle            = p.Results.AxesParticle;
 numWorkers              = p.Results.numWorkers;
 pose                    = p.Results.pose;
 movement                = p.Results.movement;
@@ -128,6 +140,22 @@ stepsOrientation        = p.Results.stepsOrientation;
 rootfolder              = p.Results.dataRootFolder;
 
 %% Particle Filter
+ if isempty(AxesStats)
+     fig = figure;
+     AxesStats = struct(...
+        'LeftAxes', suplot(1,3,1,fig), ...
+        'MiddleAxes', suplot(1,3,2,fig), ...
+        'RightAxes', suplot(1,3,3,fig) ...
+     );
+ end
+if isempty(AxesParticle)
+     fig = figure;
+     AxesParticle = struct(...
+        'LeftAxes', suplot(1,2,1,fig), ...
+        'RightAxes', suplot(1,2,2,fig) ...
+     );
+ end
+
 
 % Setup paralell pool
 poolObj = gcp('nocreate');
@@ -142,8 +170,8 @@ map = LoadMap(mapPath, 'resolution', mapResolution);
 orient    = 0:2*pi/stepsOrientation:2*pi;
 particles = Initialization(map, orient, 'gridx', gridX, 'gridy', gridY);
 
-Presentation(pose, particles, map);
-title(['Initialisation: ' 10 'particles: ' num2str(length(particles))]);
+Presentation(AxesParticle,pose, particles, map);
+title(AxesParticle.LeftAxes,['Initialisation: ' 10 'particles: ' num2str(length(particles))]);
 
 %% Do iterations
 iteration     = 1;
@@ -172,25 +200,23 @@ while iteration < maxIteration
         'max_y',      maxY, ...
         'rootfolder', rootfolder ...
     );    
-
-    particles = Particlefilter(map, particles, thetas, radius, pose, movement, ...
+    %% ToDo: ResampleUpdate
+    [particles, particleDist, normalizedWeights] = Particlefilter(map, particles, thetas, radius,...
         'sigma',                   sigma, ...
         'my',                      my, ...
         'minNumParticles',         minNumParticles, ...
         'dispersion',              dispersion, ...
-        'factorParticleReduction', factorParticleReduction, ...
-        'bins',                    bins, ...
-        'iteration',               iteration, ...
-        'minY',                    minY, ...
-        'maxY',                    maxY, ...
-        'angleRange',              angleRange ...
+        'factorParticleReduction', factorParticleReduction ...
     );
 
+    % Caution: particles are already Resampled 
+    ShowWeights(AxesStats, particleDist, normalizedWeights);
+    
     %% Results    
     disp(['Number of particles: ' num2str(length(particles))]);
     
-    Presentation(pose, particles, map, 'thetas', thetas, 'radius', radius); % , 'oldparticleidx',oldParticleIdx);
-    title(['Iteration ' num2str(iteration) ': ' 10 'particles: ' num2str(length(particles))]);
+    Presentation(AxesParticle,pose, particles, map, 'thetas', thetas, 'radius', radius); % , 'oldparticleidx',oldParticleIdx);
+    title(AxesParticle.LeftAxes,['Iteration ' num2str(iteration) ': ' 10 'particles: ' num2str(length(particles))]);
     if (mod(iteration,44) == 0)
        disp(iteration); 
     end

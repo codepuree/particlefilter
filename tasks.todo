@@ -1,4 +1,4 @@
-Particlefilter tasks:
+﻿Particlefilter tasks:
     ✔ Data acquision @done (10/15/2018, 1:39:03 PM)
         ✔ Load pointcloud from kinect @done (10/15/2018, 1:39:02 PM)
         ✔ Get cross section band (+- 20 cm) @done (10/15/2018, 1:39:02 PM)
@@ -12,3 +12,17 @@ Particlefilter tasks:
         ✔ generate poses (raster + orientations) @done (10/29/2018, 9:36:15 AM)
         ☐ add weights vector
     ☐ Movement model
+New Tasks:
+    ☐ Polar Plot
+    ☐ Benchmarking = > GUI "Stats" - Results
+    ☐ Title, axes, axesLimits update
+    ☐ Check Resampling (95%)
+    ☐ Implement different weighting functions
+    ☐ GUI Update FigureName, Tabs, delete Stuff
+    ☐ measurement
+Abschlusspräsentation:
+    ☐ Movie
+    (☐ Poster)
+    ☐ Bericht
+    ☐ Update gifs
+    ☐ Check Presentation

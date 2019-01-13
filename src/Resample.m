@@ -1,6 +1,6 @@
 function [New_Pose, oldPoseIdx] = Resample(n,weights,Poses,Streu)
 % Rand = [s,angle];
-w2 = (weights*(n) / 10000);
+w2 = (weights*(n));
 [w2s, idx]=sort(w2, 'descend');
 New_Pose = zeros(n,3);
 num_of_Pose = 0;
