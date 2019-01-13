@@ -22,9 +22,9 @@ radius = p.Results.radius;
 oldParticleIdx = p.Results.oldparticleidx;
 
 bool = true;
-figure();
+% figure();
 if ~isempty(thetas)
-    subplot(1, 2, 1);
+%     subplot(1, 2, 1);
 end
 show(map,'Parent',AxesParticle.LeftAxes);
 % show(map);
@@ -52,8 +52,8 @@ hold (AxesParticle.LeftAxes, 'off')
 
 %% AxesParticle.RightAxes
 if ~isempty(thetas)
-    subplot(1, 2, 2);
-    polarplot(thetas(~isnan(radius)), radius(~isnan(radius)),'*');
+%     subplot(1, 2, 2);
+    polarplot(AxesParticle.RightAxes, thetas(~isnan(radius)), radius(~isnan(radius)),'*');
 end
 
 end
