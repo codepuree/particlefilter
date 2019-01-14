@@ -9,8 +9,8 @@ validateAxesStats   = @(x) validateattributes(x, {'struct'}, {'nonempty'});
 addParameter(p, 'AxesStats', defaultValAxesStats, validateAxesStats);
 
 % AxesParticlet name-value pair
-defaultValAxesParticle = struct();
-validateAxesParticle   = @(x) validateattributes(x, {'struct'}, {'nonempty'});
+defaultValAxesParticle = zeros(0);
+validateAxesParticle   = @(x) validateattributes(x, {'uifigure', 'figure', 'matlab.ui.container.Panel'}, {'nonempty'});
 addParameter(p, 'AxesParticle', defaultValAxesParticle, validateAxesParticle);
 
 % NumWorker name-value pair
@@ -170,8 +170,9 @@ map = LoadMap(mapPath, 'resolution', mapResolution);
 orient    = 0:2*pi/stepsOrientation:2*pi;
 particles = Initialization(map, orient, 'gridx', gridX, 'gridy', gridY);
 
-Presentation(AxesParticle,pose, particles, map);
-title(AxesParticle.LeftAxes,['Initialisation: ' 10 'particles: ' num2str(length(particles))]);
+delete(AxesParticle.Children); % Fix: Clear the panel
+Presentation(pose, particles, map, 'Parent', AxesParticle);
+title(AxesParticle.Children(end), ['Initialisation: ' 10 'particles: ' num2str(length(particles))]);
 
 %% Do iterations
 iteration     = 1;
@@ -215,8 +216,10 @@ while iteration < maxIteration
     %% Results    
     disp(['Number of particles: ' num2str(length(particles))]);
     
-    Presentation(AxesParticle,pose, particles, map, 'thetas', thetas, 'radius', radius); % , 'oldparticleidx',oldParticleIdx);
-    title(AxesParticle.LeftAxes,['Iteration ' num2str(iteration) ': ' 10 'particles: ' num2str(length(particles))]);
+    delete(AxesParticle.Children); % Fix: Clear the panel
+    Presentation(pose, particles, map, 'thetas', thetas, 'radius', radius, 'Parent', AxesParticle); % , 'oldparticleidx',oldParticleIdx);
+    title(AxesParticle.Children(end), ['Iteration ' num2str(iteration) ': ' 10 'particles: ' num2str(length(particles))]);
+    
     if (mod(iteration,44) == 0)
        disp(iteration); 
     end
@@ -227,4 +230,3 @@ while iteration < maxIteration
 end
 
 end
-
