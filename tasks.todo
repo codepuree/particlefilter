@@ -15,7 +15,7 @@
 New Tasks:
     ✔ Polar Plot @done (1/13/2019, 8:32:05 PM)
     ☐ Benchmarking = > GUI "Stats" - Results
-    ☐ Title, axes, axesLimits update
+    ✔ Title, axes, axesLimits update @done (1/15/2019, 3:47:12 PM)
     ☐ Check Resampling (95%)
     ☐ Implement different weighting functions
     ☐ GUI Update FigureName, Tabs, delete Stuff
