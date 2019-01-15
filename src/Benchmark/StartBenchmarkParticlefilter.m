@@ -139,44 +139,17 @@ simFlag                 = p.Results.simFlag;
 stepsOrientation        = p.Results.stepsOrientation;
 rootfolder              = p.Results.dataRootFolder;
 
-%% Particle Filter
- if isempty(AxesStats)
-     fig = figure;
-     AxesStats = struct(...
-        'LeftAxes', suplot(1,3,1,fig), ...
-        'MiddleAxes', suplot(1,3,2,fig), ...
-        'RightAxes', suplot(1,3,3,fig) ...
-     );
- end
-if isempty(AxesParticle)
-     fig = figure;
-     AxesParticle = struct(...
-        'LeftAxes', suplot(1,2,1,fig), ...
-        'RightAxes', suplot(1,2,2,fig) ...
-     );
- end
-
-
-% Setup paralell pool
-poolObj = gcp('nocreate');
-if isempty(poolObj)
-    poolObj = parpool('local', numWorkers);
-end
 
 %% Load map
 map = LoadMap(mapPath, 'resolution', mapResolution);
-
 %% Init particles
 orient    = 0:2*pi/stepsOrientation:2*pi;
 particles = Initialization(map, orient, 'gridx', gridX, 'gridy', gridY);
-
 
 %% Do iterations
 iteration     = 1;
 while iteration < maxIteration
     disp([10 'Iteration: ' num2str(iteration)]);
-    tic
-    testCallback(iteration);
     %% Propagation
     if iteration > 1 && ~isempty(movement)
         particles = Propagation(particles, movement);
@@ -206,24 +179,6 @@ while iteration < maxIteration
         'dispersion',              dispersion, ...
         'factorParticleReduction', factorParticleReduction ...
     );
-
-    % Caution: particles are already Resampled 
-    
-    
-    %% Results    
-    disp(['Number of particles: ' num2str(length(particles))]);
-    
-    delete(AxesParticle.Children); % Fix: Clear the panel
-    Presentation(pose, particles, map, 'thetas', thetas, 'radius', radius, 'Parent', AxesParticle); % , 'oldparticleidx',oldParticleIdx);
-    title(AxesParticle.Children(end), ['Iteration ' num2str(iteration) ': ' 10 'particles: ' num2str(length(particles))]);
-    
-    if (mod(iteration,44) == 0)
-       disp(iteration); 
-    end
-    
-    %% EOL
     iteration = iteration + 1;
-    toc
 end
-
 end
