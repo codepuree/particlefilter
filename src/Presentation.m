@@ -16,7 +16,7 @@ validateRadius   = @(x) validateattributes(x, {'logical'}, {});
 addOptional(p, 'oldparticleidx', defaultValRadius, validateRadius);
 
 defaultValParent = zeros(0);
-validateParent   = @(x) validateattributes(x, {'uifigure', 'matlab.ui.container.Panel'}, {});
+validateParent   = @(x) validateattributes(x, {'matlab.ui.Figure', 'uifigure', 'matlab.ui.container.Panel'}, {});
 addOptional(p, 'Parent', defaultValParent, validateParent);
 
 parse(p, varargin{:});
@@ -36,7 +36,7 @@ else
     leftFigure = axes(Parent);
 end
 
-show(map,'Parent', leftFigure);
+show(map);
 % show(map);
 hold (leftFigure, 'on')
 %% Classify the 
