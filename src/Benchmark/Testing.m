@@ -12,9 +12,11 @@ end
 filename = 'TestConfig.dat';
 M = csvread(filename);
 [fin,~] = size(M);
-result = zeros(fin,4);
+result = zeros(fin,7);
 
-for i = 1:fin
+for i = 1:2
+    disp(['Case: ' num2str(i)]);
+    try
 gesamt = tic;
 sigma = M(i,1);
 bins = M(i,2);
@@ -24,9 +26,9 @@ movement = [M(i,7),M(i,8)];
 
 mapResolution = 20;
 angleRange = 0.96;  %rad
-dataRootFolder = 'D:\Desktop\Studium\7_Semester\Matlab_Nav_App\2019\ParticleFilter\Data';
-mapPath = 'D:\Desktop\Studium\7_Semester\Matlab_Nav_App\2019\ParticleFilter\Data\Vorgabe_Rundgang.png';
-particles = StartParticlefilter( ...  
+dataRootFolder = 'D:\Matlab_Nav_App\temp\particlefilter\Data';
+mapPath = 'D:\Matlab_Nav_App\temp\particlefilter\Data\Vorgabe_Rundgang.png';
+particles = StartBenchmarkParticlefilter( ...  
                 'mapPath',          mapPath, ...
                 'mapResolution',    mapResolution, ...
                 'numWorkers',       4, ...
@@ -50,7 +52,10 @@ particles = StartParticlefilter( ...
             );
         tElapsed = toc(gesamt);
 %         disp(nnz(isnan(particles)));
-        result(i,:) = [mean(particles(:,1)),mean(particles(:,2)),mean(particles(:,3)),tElapsed];
-        
+        result(i,:) = [mean(particles(:,1)),mean(particles(:,2)),mean(particles(:,3)),std(particles(:,1)),std(particles(:,2)),std(particles(:,3)),tElapsed];
+    catch err
+        disp([getReport(err, 'extended') '+++ Case: ' num2str(i)]);
+    end
+    
 end
 csvwrite('Testergebnisse.txt',result)
