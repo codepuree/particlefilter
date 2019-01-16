@@ -1,29 +1,39 @@
-function [] = ShowWeights(AxesStat, MeanDist, n_weights)
+function [] = ShowWeights(MeanDist, n_weights, varargin)
 %ShowWeights:   Plot statistical Information of weigths
-    
+p = inputParser();
 
-% figure();
+defaultValParent = zeros(0);
+validateParent   = @(x) validateattributes(x, {'matlab.ui.Figure', 'uifigure', 'matlab.ui.container.Panel'}, {});
+addOptional(p, 'Parent', defaultValParent, validateParent);
 
-% subplot(1,3,1);
+parse(p, varargin{:});
+
+Parent = p.Results.Parent;
+
+if isempty(Parent)
+    Parent = figure();
+end
+
+ax1 = subplot(1, 3, 1, axes(Parent));
 binsHisto = 50;
-histogram(AxesStat.LeftAxes,MeanDist(~isnan(MeanDist)),binsHisto);
-xlabel(AxesStat.LeftAxes,'Bins = SummeDiffs²/AnzahlSummanden [m²]');ylabel(AxesStat.LeftAxes,'Anzahl');
-title(AxesStat.LeftAxes,['Sum MeanDist not nan: ' num2str(sum(MeanDist(~isnan(MeanDist))))]);
-% ylim(AxesStat.LeftAxes,[0 40]);
+histogram(ax1,MeanDist(~isnan(MeanDist)),binsHisto);
+xlabel(ax1,'Bins = SummeDiffs²/AnzahlSummanden [m²]');ylabel(ax1,'Anzahl');
+title(ax1,['Sum MeanDist not nan: ' num2str(sum(MeanDist(~isnan(MeanDist))))]);
+% ylim(ax1,[0 40]);
 
-% subplot(1,3,2);
-histogram(AxesStat.MiddleAxes, n_weights,binsHisto);
-xlabel(AxesStat.MiddleAxes,'Bins = nach e-Fktn ');ylabel(AxesStat.MiddleAxes,'Anzahl');
-title(AxesStat.MiddleAxes,['Sum MeanDist: ' num2str(sum(n_weights))]);
-% ylim(AxesStat.MiddleAxes,[0 400]);
+ax2 = subplot(1, 3, 2, axes(Parent));
+histogram(ax2, n_weights,binsHisto);
+xlabel(ax2,'Bins = nach e-Fktn ');ylabel(ax2,'Anzahl');
+title(ax2,['Sum MeanDist: ' num2str(sum(n_weights))]);
+% ylim(ax2,[0 400]);
 
-% subplot(1,3,3);
+ax3 = subplot(1, 3, 3, axes(Parent));
 m = sort(n_weights);
-plot(AxesStat.RightAxes, m);
-xlabel(AxesStat.RightAxes,'Index');
-ylabel(AxesStat.RightAxes,'Gewicht');
-title(AxesStat.RightAxes,['Sortierte Gewichte, Summe: ' num2str(sum(n_weights))]);
-% ylim(AxesStat.RightAxes,[0 0.01]);
+plot(ax3, m);
+xlabel(ax3,'Index');
+ylabel(ax3,'Gewicht');
+title(ax3,['Sortierte Gewichte, Summe: ' num2str(sum(n_weights))]);
+% ylim(ax3,[0 0.01]);
 
 end
 

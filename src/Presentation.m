@@ -36,8 +36,8 @@ else
     leftFigure = axes(Parent);
 end
 
-show(map);
-% show(map);
+show(map, 'Parent', leftFigure);
+
 hold (leftFigure, 'on')
 %% Classify the 
 color = {'.g','.m','.c','.r','.y','.b','.w','.k'};

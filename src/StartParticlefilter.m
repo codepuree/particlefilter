@@ -4,13 +4,13 @@ function [particles] = StartParticlefilter(testCallback, varargin)
 p = inputParser;
 
 % AxesStats name-value pair
-defaultValAxesStats = struct();
-validateAxesStats   = @(x) validateattributes(x, {'struct'}, {'nonempty'});
+defaultValAxesStats = zeros(0);
+validateAxesStats   = @(x) validateattributes(x, {'uifigure', 'figure', 'matlab.ui.container.Panel'}, {});
 addParameter(p, 'AxesStats', defaultValAxesStats, validateAxesStats);
 
 % AxesParticlet name-value pair
 defaultValAxesParticle = zeros(0);
-validateAxesParticle   = @(x) validateattributes(x, {'uifigure', 'figure', 'matlab.ui.container.Panel'}, {'nonempty'});
+validateAxesParticle   = @(x) validateattributes(x, {'uifigure', 'figure', 'matlab.ui.container.Panel'}, {});
 addParameter(p, 'AxesParticle', defaultValAxesParticle, validateAxesParticle);
 
 % NumWorker name-value pair
@@ -211,7 +211,8 @@ while iteration < maxIteration
     );
 
     % Caution: particles are already Resampled 
-    ShowWeights(AxesStats, particleDist, normalizedWeights);
+    delete(AxesStats.Children);
+    ShowWeights(particleDist, normalizedWeights, 'Parent', AxesStats);
     
     %% Results    
     disp(['Number of particles: ' num2str(length(particles))]);
