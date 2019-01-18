@@ -1,10 +1,11 @@
-clear all 
-close all
-clc
+%% Setup matlab environment
+clear all;
+close all;
+clc;
 
 %% Parameters
-configPath = './TestConfig.dat';
-resultPath = './Testergebnisse.csv';
+configPath = './TestConfig_2.dat';
+resultPath = './Testergebnisse_2.csv';
 
 %% Setup paralell pool
 numWorkers = 8;
