@@ -4,8 +4,8 @@ close all;
 clc;
 
 %% Parameters
-configPath = './TestConfig_2.dat';
-resultPath = './Testergebnisse_2.csv';
+configPath = './TestConfig_3.dat';
+resultPath = './Testergebnisse_3.csv';
 
 %% Setup paralell pool
 numWorkers = 8;
